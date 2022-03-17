@@ -164,6 +164,8 @@ const Add = ({ jobs, setJobs }: { jobs: Job[], setJobs: any }) => {
       date_applied: date_applied.value,
       date_interview: date_interview.value,
     });
+    console.log('IS THE JOB FROM DB?', newJob);
+
     setJobs([newJob, ...jobs]);
     console.log('!!!!WDADreaching the navigate button');
 

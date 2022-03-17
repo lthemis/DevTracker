@@ -26,7 +26,7 @@ const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  
+
   .card--section {
     padding-left: 1.2rem;
   }
@@ -90,8 +90,7 @@ const List = ({ jobs, setJobs }) => {
               <Card
                 job={job}
                 editHandler={editHandler}
-                deleteHandler={deleteHandler}
-                ></Card>
+                deleteHandler={deleteHandler}></Card>
             );
           })}
       </CardWrapper>

@@ -5,9 +5,8 @@ const jobs_1 = require("../model/jobs");
 //Find all jobs
 const retrieveJobs = async (req, res) => {
     try {
-        // const { id } = req.body;
-        // const jobs = await Job.find({ uid: id });
-        const jobs = await jobs_1.Job.find({});
+        const { uid } = req.params;
+        const jobs = await jobs_1.Job.find({ uid: uid });
         res.send(jobs);
     }
     catch (error) {

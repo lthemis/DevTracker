@@ -4,8 +4,9 @@ const baseURL = `http://localhost:3000`;
 
 const jobService = {
 
-  async getAllJobs() {
-    return await fetch(`${baseURL}/list`)
+  getAllJobs(uid: string) {
+    return fetch(`${baseURL}/list/${uid}`)
+
       .then(response => {
         if (response.status < 300) {
           return response.json()
@@ -17,21 +18,10 @@ const jobService = {
       .then(data => {
         console.log('datainfetch', data);
         return data
-      });
+      })
+      .catch(e => console.log(e)
+      );
   },
-
-  // async getAllJobs(id: string) {
-  //   const response = await fetch(`${baseURL}/list`, {
-  //     method: 'POST',
-  //     headers: { 'Content-type': 'application/json' },
-  //     body: JSON.stringify({ id })
-  //   });
-  //   const data = await response.json();
-  //   if (response.status !== 200) {
-  //     throw new Error('Error fetching data');
-  //   }
-  //   return await data;
-  // },
 
   async createJob(job: Job) {
     const response = await fetch(`${baseURL}/add`, {
@@ -65,23 +55,6 @@ const jobService = {
       },
     });
   },
-
-  // async updateJob(id, company, position, status, date_applied, date_interview) {
-  //   console.log(company, position, status);
-  //   return await fetch(`${baseURL}/edit/${id}`, {
-  //     method: 'PUT',
-  //     body: JSON.stringify({
-  //       company,
-  //       position,
-  //       status,
-  //       date_applied,
-  //       date_interview,
-  //     }),
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   });
-  // },
 
   async deleteJob(id: string) {
     console.log('target url - delete', `${baseURL}/list/${id}`);
