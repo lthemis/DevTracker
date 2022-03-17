@@ -26,7 +26,7 @@ const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  
+
   .card--section {
     padding-left: 1.2rem;
   }
@@ -48,6 +48,9 @@ const List = ({ jobs, setJobs }) => {
     navigate(`/edit/${id}`);
   };
 
+  useEffect(() => {
+    console.log('list has mounted');
+  }, []);
   const deleteHandler = async id => {
     await jobService
       .deleteJob(id)
@@ -90,8 +93,7 @@ const List = ({ jobs, setJobs }) => {
               <Card
                 job={job}
                 editHandler={editHandler}
-                deleteHandler={deleteHandler}
-                ></Card>
+                deleteHandler={deleteHandler}></Card>
             );
           })}
       </CardWrapper>

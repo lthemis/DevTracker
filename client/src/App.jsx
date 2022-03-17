@@ -17,12 +17,16 @@ const App = () => {
   const [update, triggerUpdate] = useState();
 
   const getUid = async () => {
-    return await localStorage.getItem('uid');
+    const uid = await localStorage.getItem('uid');
+    console.log('GETUid', uid);
+    return uid;
   };
 
   const fetchItems = async () => {
     const uid = await getUid();
+    console.log(uid);
     const jobsFromDb = await jobService.getAllJobs(uid);
+    // const jobsFromDb = await jobService.getAllJobs();
 
     return jobsFromDb;
   };

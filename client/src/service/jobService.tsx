@@ -4,8 +4,10 @@ const baseURL = `http://localhost:3000`;
 
 const jobService = {
 
-  async getAllJobs() {
-    return await fetch(`${baseURL}/list`)
+  getAllJobs(uid: string) {
+    return fetch(`${baseURL}/list/${uid}`)
+      // return fetch(`${baseURL}/list/`)
+
       .then(response => {
         if (response.status < 300) {
           return response.json()
@@ -17,7 +19,9 @@ const jobService = {
       .then(data => {
         console.log('datainfetch', data);
         return data
-      });
+      })
+      .catch(e => console.log(e)
+      );
   },
 
   // async getAllJobs(id: string) {

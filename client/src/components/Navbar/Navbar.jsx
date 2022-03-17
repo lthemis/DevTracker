@@ -88,7 +88,7 @@ const NavbarWrapper = styled.div`
   .nav-menu-items {
     width: 80%;
     margin: 0px;
-    padding: 0px; 
+    padding: 0px;
   }
 
   .navbar-toggle {
@@ -101,7 +101,6 @@ const NavbarWrapper = styled.div`
 
   span {
     margin-left: 0.7rem;
-    
   }
 `;
 
@@ -124,7 +123,7 @@ const Navbar = () => {
   return (
     <NavbarWrapper>
       <Link to='#' className='menu-bars'>
-        <FaIcons.FaBars onClick={showSidebar} style={{color:"#75FF7A"}}/>
+        <FaIcons.FaBars onClick={showSidebar} style={{ color: '#75FF7A' }} />
       </Link>
       <div className='logo'>
         <img
@@ -142,13 +141,23 @@ const Navbar = () => {
               </Link>
             </li>
             {loggedIn ? (
-              <div style={{textAlign:'center'}}>
+              <div style={{ textAlign: 'center' }}>
                 <img
                   src={userPhoto}
                   alt='user'
-                  style={{ borderRadius: '100px'}}></img>
-                <p style={{color:'white', fontSize:'0.8rem', margin:'5px'}}>{userName}</p>
-                <p style={{color:'white', fontSize:'0.6rem', marginBottom:'3rem'}}>{email}</p>
+                  style={{ borderRadius: '100px' }}></img>
+                <p
+                  style={{ color: 'white', fontSize: '0.8rem', margin: '5px' }}>
+                  {userName}
+                </p>
+                <p
+                  style={{
+                    color: 'white',
+                    fontSize: '0.6rem',
+                    marginBottom: '3rem',
+                  }}>
+                  {email}
+                </p>
               </div>
             ) : (
               <div></div>
@@ -166,12 +175,16 @@ const Navbar = () => {
                 );
               })
             ) : (
-              <div style={{textAlign:'center'}}>
+              <div style={{ textAlign: 'center' }}>
                 <img
                   src={logo}
                   alt='DevTracker Logo'
-                  style={{ borderRadius: '50px', width: '7rem', marginTop:'30px' }}></img>
-                <p style={{ color: 'white', marginTop:'30px' }}>
+                  style={{
+                    borderRadius: '50px',
+                    width: '7rem',
+                    marginTop: '30px',
+                  }}></img>
+                <p style={{ color: 'white', marginTop: '30px' }}>
                   Please log in to see the information of your Dashboard
                 </p>
               </div>
