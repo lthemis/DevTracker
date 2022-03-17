@@ -26,7 +26,6 @@ const App = () => {
     const uid = await getUid();
     console.log(uid);
     const jobsFromDb = await jobService.getAllJobs(uid);
-    // const jobsFromDb = await jobService.getAllJobs();
 
     return jobsFromDb;
   };

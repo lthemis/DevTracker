@@ -7,7 +7,6 @@ const express_1 = __importDefault(require("express"));
 const job_1 = require("../controllers/job");
 const jobsRouter = express_1.default.Router();
 // GET
-// jobsRouter.get('/list', retrieveJobs);
 jobsRouter.get('/list/:uid', job_1.retrieveJobs);
 // POST
 jobsRouter.post('/add', job_1.createJob);

@@ -48,9 +48,6 @@ const List = ({ jobs, setJobs }) => {
     navigate(`/edit/${id}`);
   };
 
-  useEffect(() => {
-    console.log('list has mounted');
-  }, []);
   const deleteHandler = async id => {
     await jobService
       .deleteJob(id)

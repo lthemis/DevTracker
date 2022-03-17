@@ -6,12 +6,7 @@ import { request } from 'http';
 export const retrieveJobs: RequestHandler = async (req, res) => {
   try {
     const { uid } = req.params;
-    console.log('CONTROLLER BE', uid);
-
-    // const jobs = await Job.find({ uid: id });
     const jobs = await Job.find({ uid: uid });
-    // const jobs = await Job.find();
-
     res.send(jobs);
   } catch (error) {
     res.status(404).send({ error, message: 'Sorry, nothing found' });
