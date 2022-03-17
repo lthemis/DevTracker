@@ -56,7 +56,7 @@ const DashboardCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  margin: 3rem; 
   
   .chart-navigation{
     display: flex;

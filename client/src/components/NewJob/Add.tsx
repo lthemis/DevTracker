@@ -8,8 +8,8 @@ import { useState } from 'react';
 import { Job } from '../../interfaces';
 
 const Form = styled.div`
-  box-shadow: 6px -1px 20px 0px rgba(0, 0, 0, 0.45);
-  border-radius: 20px;
+  background-color: #ebebeb;
+  border-radius: 3px;
   padding-top: 2.4rem;
   text-align: center;
   margin: 0 auto;
@@ -60,11 +60,8 @@ input:focus {
 } */
   input,
   select {
-    /* background-color: yellow; */
-    width: 60%;
-    /* height: 50px; */
-
-    border-radius: 15px;
+    width: 80%;
+    border-radius: 3px;
     padding: 1rem;
     margin-bottom: 1.1rem;
     border: none;
@@ -81,10 +78,15 @@ input:focus {
     font-size: 1.1em;
     color: ${COLORS.text};
   }
+  label{
+    width: 80%;
+    margin-left: 4.5rem; 
+  }
 `;
 
 const AddButton = styled.div`
-  text-align: center;
+display: flex;
+flex-direction: row; 
   .add--btn,
   .cancel--btn {
     width: 130px;
@@ -315,14 +317,12 @@ const Add = ({ jobs, setJobs }: { jobs: Job[], setJobs: any }) => {
             </FormField>
           </div>
           <AddButton>
-            <button className='add--btn' disabled={isFormInvalid()}>
-              Add
-            </button>
-            <Link to={'/list'}>
-              <button className='cancel--btn' disabled>
-                Cancel
-              </button>
-            </Link>
+            <div>
+              <button className='add--btn' disabled={isFormInvalid()}>Add</button>
+            </div>
+            <div>
+              <Link to={'/list'}><button className='cancel--btn' disabled>Cancel</button></Link>
+            </div>
           </AddButton>
         </form>
       </Form>

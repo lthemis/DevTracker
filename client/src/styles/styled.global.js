@@ -51,13 +51,12 @@ const GlobalStyle = createGlobalStyle`
 
 
     input, select {
-    width: 400px;
+    width: 80%;
     margin: 0 auto;
     padding: 0.8rem;
     cursor: pointer;
     border: none;
     outline: none;
-    box-shadow: 2px 2px 3px 3px darkgray;
     border-radius: 15px;
     margin-bottom: 1.1rem;
   }
