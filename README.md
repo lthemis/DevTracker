@@ -11,9 +11,16 @@
 # DevTracker!
 
 <p align="center">
-  <img src="client/src/assets/cover.png" width="200"/>
+  <img src="client/src/assets/DevTrackerLogoComplete.png" width="200"/>
 </p>
-Near! is an E-commerce solution providing a flawless proximity-based shopping experience. It enables users to shop with and support local community by buing and selling items based on distance between their current locationa and the location of the selected item.
+DevTracker is a companion app for software engineers who are active one the job market. It supports them by managing job applications, reminding them about upcoming interviews, and archiving recruitment information. 
+
+• Implemented automated integration and unit tests for all API endpoints and key front-end react components. 
+• Performed a major refactor of legacy code following the DRY/SOLID method design pattern resulting in fewer API calls and a cleaner, more readable codebase.
+• Refactored legacy code following the DRY/SOLID method design pattern and moved the project to TypeScript resulting in fewer API calls and a cleaner codebase.
+• Utilized tools such as Postman and Chrome Dev tools to isolate and debug issues.
+
+• Tech Stack: React, TypeScript,, Recharts, Jest, Cypress, SuperTest, Express, MongoDB.
 
 ## Screenshots
 
