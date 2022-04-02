@@ -1,4 +1,4 @@
-# Near
+# DevTracker
 
 ### Endpoints:
 
@@ -8,7 +8,7 @@
 | ---------- | ------------- | -------- | ------ | --------- |
 
 
-# Near!
+# DevTracker!
 
 <p align="center">
   <img src="client/src/assets/cover.png" width="200"/>
