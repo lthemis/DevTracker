@@ -10,7 +10,7 @@
 
 # DevTracker!
 
-<p align="center" style="backgroundColor: black">
+<p align="center" style="background-color: black">
   <img src="client/src/assets/DevTrackerLogoComplete.png" width="200"/>
 </p>
 DevTracker is a companion app for software engineers who are active one the job market. It supports them by managing job applications, reminding them about upcoming interviews, and archiving recruitment information. 
