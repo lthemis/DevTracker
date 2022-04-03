@@ -1,13 +1,3 @@
-# DevTracker
-
-### Endpoints:
-
-| Method     | path          | params   | body   | returns   |
-| ---------- | ------------- | -------- | ------ | --------- |
-| GET        | landing page  | -        | -      | -         |
-| ---------- | ------------- | -------- | ------ | --------- |
-
-
 # DevTracker!
 
 <p align="center" style="background-color: black">
@@ -33,7 +23,7 @@ DevTracker is a companion app for software engineers who are active one the job 
 1. Clone this repo.
 
     ```bash
-    git clone https://github.com/lthemis/Near
+    git clone https://github.com/lthemis/DevTracker.git
     ```
 
 2. Install dependencies in both client and server folders.
@@ -45,20 +35,20 @@ DevTracker is a companion app for software engineers who are active one the job 
 3. Create .env file in client folder
 
     ```bash
-    REACT_APP_BASE_URL=
-    REACT_APP_ESRI_API_KEY=
-    REACT_APP_SOCKET_URL=
-    REACT_APP_CLOUDINARY_UPLOAD_PRESET=
-    REACT_APP_CLOUDINARY_CLOUD_NAME=
+    REACT_APP_apiKey=
+    REACT_APP_authDomain=
+    REACT_APP_projectId=
+    REACT_APP_storageBucket=
+    REACT_APP_messagingSenderId=
+    REACT_APP_appId=
+    REACT_APP_measurementId=
     ```
 
 4. Create .env file in server folder
 
     ```bash
-    DATABASE_URL=
-    SOCKET_URL=
-    SERVER_URL=
-    SERVER_PORT=
+    PORT=
+    DB_MONGO_HOST=
     ```
 
 5. Install the [Mongo](https://www.mongodb.com/docs/manual/installation/) database on your machine
@@ -79,7 +69,7 @@ DevTracker is a companion app for software engineers who are active one the job 
 ## Tech Stack
 
 * [React](https://reactjs.org/)
-* [Leaflet](https://leafletjs.com/)
+* [TypeScript](https://www.typescriptlang.org/)
 * [Node.js](https://nodejs.org/)
 * [Express](https://expressjs.com/)
 * [Mongo](https://www.mongodb.com/)
