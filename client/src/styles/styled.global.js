@@ -6,6 +6,9 @@ const GlobalStyle = createGlobalStyle`
       box-sizing: border-box;
       margin: 0;
       padding: 0;  
+      body > #root > div {
+        height: 100vh;
+      }
       :focus {
    outline: 0;
 

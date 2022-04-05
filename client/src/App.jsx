@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import Dashboard from './components/Dashboard/dashboard';
 import EditForm from './components/EditForm/EditForm';
-import Home from './components/Home/Home';
 import List from './components/List/List';
 import Navbar from './components/Navbar/Navbar';
 import Add from './components/NewJob/Add';
@@ -10,6 +9,13 @@ import Reminder from './components/Reminder/Reminder';
 import jobService from './service/jobService';
 import GlobalStyle from './styles/styled.global';
 import Login from './components/Login/Login';
+import Landing from './components/Home/Landing';
+import styled from "styled-components";
+
+const AppWrapper = styled.div`
+display: flex;
+flex-direction: column;
+`;
 
 const App = () => {
   const [jobs, setJobs] = useState([]);
@@ -42,13 +48,13 @@ const App = () => {
 
   return (
     <>
-      <div>
+      <AppWrapper>
         <GlobalStyle />
         <>
           <Router>
             <Navbar />
             <Routes>
-              <Route exact path='/' element={<Home />} />
+              <Route exact path='/' element={<Landing />} />
               <Route
                 exact
                 path='/dashboard'
@@ -91,7 +97,7 @@ const App = () => {
             </Routes>
           </Router>
         </>
-      </div>
+      </AppWrapper>
     </>
   );
 };
