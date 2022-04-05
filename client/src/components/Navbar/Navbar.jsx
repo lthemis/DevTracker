@@ -12,18 +12,17 @@ import logo from '../../assets/DevTrackerLogo.png';
 import textLogo from '../../assets/DevTrackerText.png';
 
 const NavbarWrapper = styled.div`
-  /* display: flex; */
-  display: inline-block;
-  /* height: 100vh; */
+  display: flex;
   width: 100%;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
   background-color: #242933;
   .logo {
-    position: absolute;
-    right: 30px;
-    top: 20px;
+    padding-right: 2rem;
     color: ${COLORS.button};
+    @media (max-width: 1006px) { 
+      display:none;
+     }
     h2 {
       font-size: 2.8em;
       font-weight: bolder;
