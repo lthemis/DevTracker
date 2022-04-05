@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import jobService from '../../service/jobService';
 import COLORS from '../../styles/styled.constants';
 import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 const UpdateForm = styled.div`
   box-shadow: 6px -1px 20px 0px rgba(0, 0, 0, 0.45);
@@ -45,7 +46,9 @@ const EditForm = ({ jobs, triggerUpdate }) => {
     jobs.find(job => job._id === id)
   );
   let navigate = useNavigate();
-
+  
+  console.log(selectedJob);
+  console.log('it', dayjs(selectedJob.date_interview).format());
   const editHandler = async e => {
     e.preventDefault();
 
@@ -57,6 +60,7 @@ const EditForm = ({ jobs, triggerUpdate }) => {
       date_applied: e.target.date_applied.value,
       date_interview: e.target.date_interview.value,
     };
+    console.log(newJob);
     await jobService
       .updateJob(newJob)
       .then(res => {
@@ -101,13 +105,13 @@ const EditForm = ({ jobs, triggerUpdate }) => {
           <input
             name='date_applied'
             type='datetime-local'
-            defaultValue={selectedJob.date_applied}
+            defaultValue={dayjs(selectedJob.date_applied).format('YYYY-MM-DDTH:m')}
           />
           <label htmlFor='date_interview'>Date Interview</label>
           <input
             name='date_interview'
             type='datetime-local'
-            defaultValue={selectedJob.date_interview}
+            defaultValue={dayjs(selectedJob.date_interview).format('YYYY-MM-DDTH:m')}
           />
           <EditButton>
             <button className='add--btn'>Edit</button>
