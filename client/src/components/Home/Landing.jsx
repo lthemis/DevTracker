@@ -11,6 +11,7 @@ const LandingWrapper = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #242933;
+  padding: 2rem;
   .left {
     flex: 2;
     margin: auto;
@@ -35,11 +36,13 @@ const LandingWrapper = styled.div`
   }
   .right {
     flex: 1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
     img {
       width: 500px;
       height: 500px;
       border-radius: 50%;
-      margin-right: 4rem;
     }
   }
 `;
