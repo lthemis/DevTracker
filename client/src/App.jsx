@@ -10,6 +10,7 @@ import jobService from './service/jobService';
 import GlobalStyle from './styles/styled.global';
 import Login from './components/Login/Login';
 import Landing from './components/Home/Landing';
+import FormComp from './components/Form/Form';
 import styled from "styled-components";
 
 const AppWrapper = styled.div`
@@ -70,7 +71,7 @@ const App = () => {
                 exact
                 path='/add'
                 element={
-                  <Add
+                  <FormComp
                     setJobs={setJobs}
                     jobs={jobs}
                     isEditing={isEditing}
