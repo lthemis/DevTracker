@@ -85,22 +85,13 @@ const FormComp = ({ jobs, setJobs }: { jobs: Job[], setJobs: any }) => {
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const { company, position, status, date_applied, date_interview } =
-      e.target as typeof e.target & {
-        company: { value: string },
-        position: { value: string },
-        status: { value: string },
-        date_applied: { value: string },
-        date_interview: { value: string },
-      };
-
     const newJob = await jobService.createJob({
       uid: userId,
-      company: company.value,
-      position: position.value,
-      status: status.value,
-      date_applied: date_applied.value,
-      date_interview: date_interview.value,
+      company: formState.company,
+      position: formState.position,
+      status: formState.status,
+      date_applied: formState.date_applied,
+      date_interview: formState.date_interview,
     });
 
     setJobs([newJob, ...jobs]);
