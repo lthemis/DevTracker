@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import Dashboard from './components/Dashboard/dashboard';
-import EditForm from './components/EditForm/EditForm';
 import List from './components/List/List';
 import Navbar from './components/Navbar/Navbar';
-import Add from './components/NewJob/Add';
 import Reminder from './components/Reminder/Reminder';
 import jobService from './service/jobService';
 import GlobalStyle from './styles/styled.global';
@@ -20,18 +18,14 @@ flex-direction: column;
 
 const App = () => {
   const [jobs, setJobs] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
-  const [update, triggerUpdate] = useState();
 
   const getUid = async () => {
     const uid = await localStorage.getItem('uid');
-    console.log('GETUid', uid);
     return uid;
   };
 
   const fetchItems = async () => {
     const uid = await getUid();
-    console.log(uid);
     const jobsFromDb = await jobService.getAllJobs(uid);
 
     return jobsFromDb;
@@ -39,13 +33,13 @@ const App = () => {
 
   const setStateFunc = async () => {
     const result = await fetchItems();
-    console.log('STEP 5: set state', result);
     setJobs(result);
   };
 
   useEffect(() => {
     setStateFunc();
-  }, [update]);
+}, []);
+
 
   return (
     <>
@@ -74,8 +68,7 @@ const App = () => {
                   <FormComp
                     setJobs={setJobs}
                     jobs={jobs}
-                    isEditing={isEditing}
-                    setIsEditing={setIsEditing}
+                    role="add"
                   />
                 }
               />
@@ -83,10 +76,10 @@ const App = () => {
                 exact
                 path='/edit/:id'
                 element={
-                  <EditForm
-                    triggerUpdate={triggerUpdate}
-                    jobs={jobs}
+                  <FormComp
                     setJobs={setJobs}
+                    jobs={jobs}
+                    role="edit"
                   />
                 }
               />

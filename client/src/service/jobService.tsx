@@ -15,10 +15,7 @@ const jobService = {
           return new Error(`There was an error`)
         }
       })
-      .then(data => {
-        console.log('datainfetch', data);
-        return data
-      })
+      .then(data => data)
       .catch(e => console.log(e)
       );
   },
@@ -38,9 +35,7 @@ const jobService = {
 
   async updateJob(job: Job) {
     const { _id, company, position, status, date_applied, date_interview } = job;
-    console.log('API', job);
-
-    return await fetch(`${baseURL}/edit/${_id}`, {
+    const response = await fetch(`${baseURL}/edit/${_id}`, {
       method: 'PUT',
       body: JSON.stringify({
         _id: _id,
@@ -54,11 +49,14 @@ const jobService = {
         'Content-Type': 'application/json',
       },
     });
+    const data = await response.json();
+    if (response.status >= 400) {
+      throw new Error(data.message);
+    }
+    return data;
   },
 
   async deleteJob(id: string) {
-    console.log('target url - delete', `${baseURL}/list/${id}`);
-
     return await fetch(`${baseURL}/list/${id}`, {
       method: 'DELETE',
     });

@@ -1,9 +1,8 @@
 import jobService from '../../service/jobService';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
-import COLORS from '../../styles/styled.constants';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useState } from 'react';
 import { Job } from '../../interfaces';
 import Button from './Button';
@@ -32,23 +31,34 @@ flex-direction: row;
 `;
 
 type formStateType = {
-  [key: string]: string
+  [key: string]: string;
 }
+
 type filedNameType = 'company' | 'position' | 'status' | 'date_applied' | 'date_interview';
 
 type blurStateType = {
   [key: string]: boolean | string;
 }
 
-const FormComp = ({ jobs, setJobs }: { jobs: Job[], setJobs: any }) => {
+const FormComp = ({ jobs, setJobs, role }: { jobs: Job[], setJobs: any, role: string }) => {
   let navigate = useNavigate();
-  const [formState, setFormState] = useState<formStateType>({
-    company: '',
-    position: '',
-    status: '',
-    date_applied: '',
-    date_interview: '',
-  });
+  const { id: jobId } = useParams();
+  const selectedJob = jobs.find(job => job._id === jobId)
+
+  const [formState, setFormState] = useState<formStateType>(
+    jobId ? {
+      company: selectedJob!.company,
+      position: selectedJob!.position,
+      status: selectedJob!.status,
+      date_applied: selectedJob!.date_applied,
+      date_interview: selectedJob!.date_interview,
+    } : {
+      company: '',
+      position: '',
+      status: '',
+      date_applied: '',
+      date_interview: '',
+    });
 
   const [blurState, setBlurState] = useState<blurStateType>({
     company: false,
@@ -81,20 +91,34 @@ const FormComp = ({ jobs, setJobs }: { jobs: Job[], setJobs: any }) => {
     return true;
   };
 
-
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const newJob = await jobService.createJob({
-      uid: userId,
-      company: formState.company,
-      position: formState.position,
-      status: formState.status,
-      date_applied: formState.date_applied,
-      date_interview: formState.date_interview,
-    });
+    if (jobId) {
+      const newJob = {
+        _id: jobId,
+        company: formState.company,
+        position: formState.position,
+        status: formState.status,
+        date_applied: formState.date_applied,
+        date_interview: formState.date_interview,
+      }
+      await jobService.updateJob(newJob);
+      setJobs([...jobs.filter(job => job._id !== jobId), newJob]);
+    }
 
-    setJobs([newJob, ...jobs]);
+    if (!jobId) {
+      const newJob = await jobService.createJob({
+        uid: userId,
+        company: formState.company,
+        position: formState.position,
+        status: formState.status,
+        date_applied: formState.date_applied,
+        date_interview: formState.date_interview,
+      });
+      setJobs([newJob, ...jobs]);
+    }
+
     navigate('/list');
   };
 
@@ -108,16 +132,15 @@ const FormComp = ({ jobs, setJobs }: { jobs: Job[], setJobs: any }) => {
       return true;
     } return "";
   };
-
   return (
     <Form>
-      <h1>Add a New Job</h1>
+      {role === 'add' ? <h1>Add a New Job</h1> : <h1>Edit job</h1>}
       <form onSubmit={submitHandler} className='form--box'>
-        <InputField identifier='company' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} />
-        <InputField identifier='position' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} />
-        <InputField identifier='status' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} />
-        <InputField identifier='date_applied' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} />
-        <InputField identifier='date_interview' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} />
+        <InputField identifier='company' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} defaultValue={formState.company} />
+        <InputField identifier='position' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} defaultValue={formState.position} />
+        <InputField identifier='status' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} defaultValue={formState.status} />
+        <InputField identifier='date_applied' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} defaultValue={formState.date_applied} />
+        <InputField identifier='date_interview' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} defaultValue={formState.date_interview} />
         <ButtonsContainer>
           <Button useCase="Add" className='add--btn' isFormInvalid={isFormInvalid} />
           <Link to={'/list'}>
@@ -125,8 +148,7 @@ const FormComp = ({ jobs, setJobs }: { jobs: Job[], setJobs: any }) => {
           </Link>
         </ButtonsContainer>
       </form>
-    </Form>
-  );
+    </Form>)
 };
 
 export default FormComp;

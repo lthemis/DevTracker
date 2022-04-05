@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import COLORS from '../../styles/styled.constants';
+import dayjs from 'dayjs';
 
 const FormField = styled.div`
   margin: 0 auto;
@@ -41,13 +42,17 @@ type Props = {
   changeHandler: (e: React.FormEvent<HTMLElement>) => void;
   blurHandler: (e: React.FocusEvent<HTMLElement>) => void;
   isFieldInvalid: (fieldName: filedNameType) => true | "";
+  defaultValue?: string;
 }
 
-const InputField = ({ identifier, changeHandler, blurHandler, isFieldInvalid }: Props) => {
+const InputField = ({ identifier, defaultValue, changeHandler, blurHandler, isFieldInvalid }: Props) => {
+  console.log(defaultValue);
+
   if (identifier === 'company') return (
     <FormField>
       <label htmlFor='company'>Company name:</label>
       <input
+        defaultValue={defaultValue}
         data-testid='idTest'
         className='input--filed'
         type='text'
@@ -68,7 +73,7 @@ const InputField = ({ identifier, changeHandler, blurHandler, isFieldInvalid }: 
   if (identifier === 'position') return (
     <FormField>
       <label htmlFor='position'>Position:</label>
-      <select
+      <select defaultValue={defaultValue}
         data-testid='position'
         className='position'
         name='position'
@@ -91,6 +96,7 @@ const InputField = ({ identifier, changeHandler, blurHandler, isFieldInvalid }: 
     <FormField>
       <label htmlFor='status'>Select job status:</label>
       <select
+        defaultValue={defaultValue}
         data-testid='status'
         name='status'
         className='status'
@@ -118,6 +124,7 @@ const InputField = ({ identifier, changeHandler, blurHandler, isFieldInvalid }: 
     <FormField>
       <label htmlFor='date_applied'>Select date of application</label>
       <input
+        defaultValue={dayjs(defaultValue).format('YYYY-MM-DD')}
         data-testid='date_applied'
         className='applied'
         name='date_applied'
@@ -141,6 +148,7 @@ const InputField = ({ identifier, changeHandler, blurHandler, isFieldInvalid }: 
     <FormField>
       <label htmlFor='date_interview'>Select date of application</label>
       <input
+        defaultValue={dayjs(defaultValue).format('YYYY-MM-DDTH:m')}
         data-testid='date_interview'
         className='interview'
         name='date_interview'
