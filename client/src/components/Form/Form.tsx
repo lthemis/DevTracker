@@ -9,6 +9,8 @@ import { Job } from '../../interfaces';
 import Button from './Button';
 import InputField from './InputField';
 const Form = styled.div`
+  margin-top: 4rem;
+  height: 70vh;
   background-color: #ebebeb;
   border-radius: 3px;
   padding-top: 2.4rem;
@@ -21,67 +23,6 @@ const Form = styled.div`
   max-width: 50%;
   .form--box {
     z-index: 1000 !important;
-  }import { Job } from '../../interfaces';
-
-  .calendar {
-    /* display: flex; */
-
-    margin-left: 2rem;
-
-    /* .applied {
-    position: absolute;
-    bottom: 210px;
-    right: 140px;
-    width: 260px;
-    flex: 1;
-  }
-  .interview {
-    position: absolute;
-    bottom: 120px;
-    right: 140px;
-    width: 260px;
-    flex: 1;
-  } */
-  }
-`;
-
-const FormWrapper = styled.div`
-  /* background-color: green; */
-  margin-top: 4rem;
-  height: 70vh;
-`;
-
-const FormField = styled.div`
-  margin: 0 auto;
-  text-align: center;
-  margin-right: 1em;
-  /* select:focus,
-input:focus {
-  outline: none;
-} */
-  input,
-  select {
-    width: 80%;
-    border-radius: 3px;
-    padding: 1rem;
-    margin-bottom: 1.1rem;
-    border: none;
-  }
-  option {
-    font-size: 1.2rem;
-    color: ${COLORS.text};
-  }
-  .company,
-  .position,
-  .status,
-  .applied,
-  .interview {
-    font-size: 1.1em;
-    color: ${COLORS.text};
-  }
-  label{
-    width: 80%;
-    margin-left: 4.5rem; 
   }
 `;
 
@@ -90,16 +31,17 @@ display: flex;
 flex-direction: row; 
 `;
 
+type formStateType = {
+  [key: string]: string
+}
+type filedNameType = 'company' | 'position' | 'status' | 'date_applied' | 'date_interview';
+
+type blurStateType = {
+  [key: string]: boolean | string;
+}
+
 const FormComp = ({ jobs, setJobs }: { jobs: Job[], setJobs: any }) => {
   let navigate = useNavigate();
-
-  const userId: string = localStorage.getItem('uid')!
-
-
-  type formStateType = {
-    [key: string]: string
-  }
-
   const [formState, setFormState] = useState<formStateType>({
     company: '',
     position: '',
@@ -107,6 +49,16 @@ const FormComp = ({ jobs, setJobs }: { jobs: Job[], setJobs: any }) => {
     date_applied: '',
     date_interview: '',
   });
+
+  const [blurState, setBlurState] = useState<blurStateType>({
+    company: false,
+    position: false,
+    status: false,
+    date_applied: false,
+    date_interview: false,
+  });
+
+  const userId: string = localStorage.getItem('uid')!
 
   const changeHandler = (e: React.FormEvent<HTMLElement>) => {
     const target = e.target as typeof e.target & {
@@ -132,8 +84,6 @@ const FormComp = ({ jobs, setJobs }: { jobs: Job[], setJobs: any }) => {
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('SUBMIT HANDLER');
-
 
     const { company, position, status, date_applied, date_interview } =
       e.target as typeof e.target & {
@@ -152,30 +102,13 @@ const FormComp = ({ jobs, setJobs }: { jobs: Job[], setJobs: any }) => {
       date_applied: date_applied.value,
       date_interview: date_interview.value,
     });
-    console.log('IS THE JOB FROM DB?', newJob);
 
     setJobs([newJob, ...jobs]);
-    console.log('!!!!WDADreaching the navigate button');
-
     navigate('/list');
   };
 
-  type blurStateType = {
-    [key: string]: boolean | string;
-  }
-  type filedNameType = 'company' | 'position' | 'status' | 'date_applied' | 'date_interview';
-
-  const [blurState, setBlurState] = useState<blurStateType>({
-    company: false,
-    position: false,
-    status: false,
-    date_applied: false,
-    date_interview: false,
-  });
-
   const blurHandler = (e: React.FocusEvent<HTMLElement>) => {
     const target = e.target as typeof e.target & { name: string };
-
     setBlurState({ ...blurState, [target.name]: true });
   };
 
@@ -186,112 +119,22 @@ const FormComp = ({ jobs, setJobs }: { jobs: Job[], setJobs: any }) => {
   };
 
   return (
-    <FormWrapper>
-      <Form>
-        <h1>Add a New Job</h1>
-        <form onSubmit={submitHandler} className='form--box'>
-          <InputField identifier='company' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} />
-
-          <FormField>
-            <label htmlFor='position'>Position:</label>
-            <select
-              data-testid='position'
-              className='position'
-              name='position'
-              onChange={changeHandler}
-              onBlur={blurHandler}
-              aria-describedby={
-                isFieldInvalid('position') ? 'position-error' : undefined
-              }>
-              <option hidden>Select Job Title</option>
-              <option value='frontend'>frontend</option>
-              <option value='backend'>backend</option>
-              <option value='fullstack'>fullstack</option>
-            </select>
-            {isFieldInvalid('position') ? (
-              <p data-testid={'position-error'}>Please select position</p>
-            ) : null}
-          </FormField>
-          <FormField>
-            <label htmlFor='status'>Select job status:</label>
-            <select
-              data-testid='status'
-              name='status'
-              className='status'
-              onChange={changeHandler}
-              onBlur={blurHandler}
-              aria-describedby={
-                isFieldInvalid('status') ? 'status-error' : undefined
-              }>
-              <option hidden>Select Job Status</option>
-              <option value='interested'>interested</option>
-              <option value='applied'>applied</option>
-              <option value='phone-interview'>phone-interview</option>
-              <option value='technical interview'>technical interview</option>
-              <option value='declined'>declined</option>
-              <option value='accepted'>accepted</option>
-            </select>
-            {isFieldInvalid('status') ? (
-              <p data-testid={'status-error'}>
-                Please select date of the application
-              </p>
-            ) : null}
-          </FormField>
-          <div className='calendar'>
-            <label htmlFor='date_applied'>Select date of application</label>
-            <FormField>
-              <input
-                data-testid='date_applied'
-                className='applied'
-                name='date_applied'
-                type='date'
-                onChange={changeHandler}
-                onBlur={blurHandler}
-                aria-describedby={
-                  isFieldInvalid('date_applied')
-                    ? 'date_applied-error'
-                    : undefined
-                }
-              />
-              {isFieldInvalid('date_applied') ? (
-                <p data-testid={'date_applied-error'}>
-                  Please select interview date
-                </p>
-              ) : null}
-            </FormField>
-          </div>
-          <div className='calendar'>
-            <label htmlFor='date_interview'>Select date of interview:</label>
-            <FormField>
-              <input
-                data-testid='date_interview'
-                className='interview'
-                name='date_interview'
-                type='datetime-local'
-                onChange={changeHandler}
-                onBlur={blurHandler}
-                aria-describedby={
-                  isFieldInvalid('date_interview')
-                    ? '"date_interview-error'
-                    : undefined
-                }
-              />
-              {isFieldInvalid('date_interview') ? (
-                <p data-testid={'date_interview-error'}>
-                  Please select position
-                </p>
-              ) : null}
-            </FormField>
-          </div>
-          <ButtonsContainer>
-            <Button useCase="Add" className='add--btn' isFormInvalid={isFormInvalid} />
-            <Link to={'/list'}>
-              <Button useCase="Cancel" className='cancel--btn' />
-            </Link>
-          </ButtonsContainer>
-        </form>
-      </Form>
-    </FormWrapper>
+    <Form>
+      <h1>Add a New Job</h1>
+      <form onSubmit={submitHandler} className='form--box'>
+        <InputField identifier='company' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} />
+        <InputField identifier='position' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} />
+        <InputField identifier='status' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} />
+        <InputField identifier='date_applied' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} />
+        <InputField identifier='date_interview' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} />
+        <ButtonsContainer>
+          <Button useCase="Add" className='add--btn' isFormInvalid={isFormInvalid} />
+          <Link to={'/list'}>
+            <Button useCase="Cancel" className='cancel--btn' />
+          </Link>
+        </ButtonsContainer>
+      </form>
+    </Form>
   );
 };
 

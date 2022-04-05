@@ -46,25 +46,23 @@ type Props = {
 const InputField = ({ identifier, changeHandler, blurHandler, isFieldInvalid }: Props) => {
   if (identifier === 'company') return (
     <FormField>
-      <div className='company'>
-        <label htmlFor='company'>Company name:</label>
-        <input
-          data-testid='idTest'
-          className='input--filed'
-          type='text'
-          name='company'
-          id='company'
-          placeholder='Type a company'
-          onChange={changeHandler}
-          onBlur={blurHandler}
-          aria-describedby={
-            isFieldInvalid('company') ? 'company-error' : undefined
-          }
-        />
-        {isFieldInvalid('company') ? (
-          <p data-testid={'company-error'}>Please provide company name</p>
-        ) : null}
-      </div>
+      <label htmlFor='company'>Company name:</label>
+      <input
+        data-testid='idTest'
+        className='input--filed'
+        type='text'
+        name='company'
+        id='company'
+        placeholder='Type a company'
+        onChange={changeHandler}
+        onBlur={blurHandler}
+        aria-describedby={
+          isFieldInvalid('company') ? 'company-error' : undefined
+        }
+      />
+      {isFieldInvalid('company') ? (
+        <p data-testid={'company-error'}>Please provide company name</p>
+      ) : null}
     </FormField>
   )
   if (identifier === 'position') return (
@@ -89,7 +87,7 @@ const InputField = ({ identifier, changeHandler, blurHandler, isFieldInvalid }: 
       ) : null}
     </FormField>
   )
-  if (identifier === 'status') {
+  if (identifier === 'status') return (
     <FormField>
       <label htmlFor='status'>Select job status:</label>
       <select
@@ -115,8 +113,8 @@ const InputField = ({ identifier, changeHandler, blurHandler, isFieldInvalid }: 
         </p>
       ) : null}
     </FormField>
-  }
-  if (identifier === 'date_applied') {
+  )
+  if (identifier === 'date_applied') return (
     <FormField>
       <label htmlFor='date_applied'>Select date of application</label>
       <input
@@ -138,30 +136,30 @@ const InputField = ({ identifier, changeHandler, blurHandler, isFieldInvalid }: 
         </p>
       ) : null}
     </FormField>
-  }
-  if (identifier === 'date_interview') {
+  )
+  if (identifier === 'date_interview') return (
     <FormField>
-      <label htmlFor='date_applied'>Select date of application</label>
+      <label htmlFor='date_interview'>Select date of application</label>
       <input
-        data-testid='date_applied'
-        className='applied'
-        name='date_applied'
-        type='date'
+        data-testid='date_interview'
+        className='interview'
+        name='date_interview'
+        type='datetime-local'
         onChange={changeHandler}
         onBlur={blurHandler}
         aria-describedby={
-          isFieldInvalid('date_applied')
-            ? 'date_applied-error'
+          isFieldInvalid('date_interview')
+            ? '"date_interview-error'
             : undefined
         }
       />
-      {isFieldInvalid('date_applied') ? (
-        <p data-testid={'date_applied-error'}>
-          Please select interview date
+      {isFieldInvalid('date_interview') ? (
+        <p data-testid={'date_interview-error'}>
+          Please select position
         </p>
       ) : null}
     </FormField>
-  }
+  )
   return <div>error</div>
 }
 
