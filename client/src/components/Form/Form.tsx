@@ -7,22 +7,41 @@ import { useState } from 'react';
 import { Job } from '../../interfaces';
 import Button from './Button';
 import InputField from './InputField';
+import COLORS from '../../styles/styled.constants';
+
 const Form = styled.div`
-  margin-top: 4rem;
-  height: 70vh;
-  background-color: #ebebeb;
-  border-radius: 3px;
-  padding-top: 2.4rem;
-  text-align: center;
-  margin: 0 auto;
-  height: 90vh;
-  position: relative;
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
   width: 100%;
-  width: 70%;
-  max-width: 50%;
+  flex-grow: 1;
+
   .form--box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     z-index: 1000 !important;
+    background-color: #ebebeb;
+    text-align: center;
+    border-radius: 5px;
+    width:40%;
+
+    @media (max-width: 1006px) { 
+      width:auto;
+    }
+
+    .headerWrapper{
+      width: 100%;
+      padding-bottom: 1rem;
+      .header {
+        padding-top:1rem;
+        color: ${COLORS.text};
+      }
+    }
   }
+
 `;
 
 const ButtonsContainer = styled.div`
@@ -134,8 +153,8 @@ const FormComp = ({ jobs, setJobs, role }: { jobs: Job[], setJobs: any, role: st
   };
   return (
     <Form>
-      {role === 'add' ? <h1>Add a New Job</h1> : <h1>Edit job</h1>}
       <form onSubmit={submitHandler} className='form--box'>
+        <div className='headerWrapper'>{role === 'add' ? <h1 className="header">Add a New Job</h1> : <h1>Edit job</h1>}</div>
         <InputField identifier='company' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} defaultValue={formState.company} />
         <InputField identifier='position' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} defaultValue={formState.position} />
         <InputField identifier='status' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} defaultValue={formState.status} />

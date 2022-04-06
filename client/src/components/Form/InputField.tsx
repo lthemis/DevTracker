@@ -4,21 +4,23 @@ import COLORS from '../../styles/styled.constants';
 import dayjs from 'dayjs';
 
 const FormField = styled.div`
-  margin: 0 auto;
   text-align: center;
-  margin-right: 1em;
-  /* select:focus,
-input:focus {
-  outline: none;
-} */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 75%;
   input,
   select {
-    width: 80%;
     border-radius: 3px;
     padding: 1rem;
     margin-bottom: 1.1rem;
     border: none;
+    width:100%;
   }
+  input:focus {
+    outline: none;
+    }
   option {
     font-size: 1.2rem;
     color: ${COLORS.text};
@@ -32,8 +34,7 @@ input:focus {
     color: ${COLORS.text};
   }
   label{
-    width: 80%;
-    margin-left: 4.5rem; 
+    align-self: baseline;
   }
 `;
 type filedNameType = 'company' | 'position' | 'status' | 'date_applied' | 'date_interview';

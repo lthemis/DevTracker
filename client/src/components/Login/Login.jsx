@@ -24,7 +24,7 @@ const LoginButton = styled.div`
   }
 `;
 
-function Login({ loggedIn, setLoggedIn }) {
+function Login({ loggedIn, setLoggedIn, setJobs }) {
   const navigate = useNavigate();
   const SingInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
@@ -44,7 +44,7 @@ function Login({ loggedIn, setLoggedIn }) {
   const LogOut = async () => {
     signOut(authentification)
       .then(res => {
-        console.log(res, 'logged out res');
+        setJobs([])
         navigate('/');
       })
       .then(setLoggedIn(false))
@@ -53,6 +53,7 @@ function Login({ loggedIn, setLoggedIn }) {
       });
     localStorage.removeItem('uid');
     localStorage.removeItem('userPhoto');
+    localStorage.removeItem('email');
   };
 
   return (

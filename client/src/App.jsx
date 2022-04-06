@@ -55,7 +55,7 @@ const App = () => {
                 path='/dashboard'
                 element={<Dashboard jobs={jobs} />}
               />
-              <Route exact path='/login' element={<Login />} />
+              <Route exact path='/login' setJobs={setJobs} element={<Login />} />
               <Route
                 exact
                 path='/list'
