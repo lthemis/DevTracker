@@ -45,7 +45,6 @@ function Login({ loggedIn, setLoggedIn, setJobs }) {
     signOut(authentification)
       .then(res => {
         setJobs([])
-        navigate('/');
       })
       .then(setLoggedIn(false))
       .catch(err => {
@@ -54,6 +53,7 @@ function Login({ loggedIn, setLoggedIn, setJobs }) {
     localStorage.removeItem('uid');
     localStorage.removeItem('userPhoto');
     localStorage.removeItem('email');
+    navigate('/');
   };
 
   return (

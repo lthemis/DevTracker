@@ -13,28 +13,33 @@ import COLORS from '../../styles/styled.constants';
 import OverviewChart from './OverviewChart';
 
 
+
+
 const DashboardWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100vh;
-  flex-direction: row-reverse;
+display: flex;
+  margin-top: 2rem; 
+  flex-direction: row;
+  flex-wrap: wrap;  
+  align-items: center;
+  justify-content: center; 
+  min-width: 300px; 
 `;
+
+
 const DashboardContainer = styled.div`
-  flex: 1;
   .dashboard--icon{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: center;  
   }
 `;
 
 const Graph = styled.div`
-  flex: 3;
-  flex-direction: column;
-  padding-top: 2rem;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .chart--img {
   }
 
@@ -193,10 +198,18 @@ const filterCompany = () => {
 
   
   return (
-    <>
+   
       <DashboardWrapper>
-        {/* Summary Panel */}
+        <Graph>
+            <OverviewChart
+              jobData={jobData} 
+              allJobStatus={JobStatus}
+            />
+        </Graph>
+        
+
         <DashboardContainer>
+        <div className="buttons-container">
           <DashboardCard>
             <div className='chart-navigation'>
               <div>
@@ -236,17 +249,11 @@ const filterCompany = () => {
               </div>
             </div>
           </DashboardCard>
+        </div> 
         </DashboardContainer>
-        <Graph>
-          <div>
-            <OverviewChart
-              jobData={jobData} 
-              allJobStatus={JobStatus}
-            />
-          </div>
-        </Graph>
       </DashboardWrapper>
-    </>
+    
+  
   );
 };
 
