@@ -6,18 +6,18 @@ import styled from "styled-components";
 Chart.register(ArcElement);
 
 const OverviewWrapper = styled.div`
-position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
 `;
 const GraphWrapper = styled.div`
-width: 60%;
-text-align: center;
-height: 70vh;
+display: flex;
+width: 50vw;
+min-width: 350px; 
+height: 70vh; 
+padding: 2rem; 
 box-shadow: 6px -1px 20px 0px rgba(0, 0, 0, 0.45);
 border-radius: 20px;
-padding: 2rem;
-position: absolute;
-left: 50%;
-transform: translateX(-50%);
 background-color: white;
 
 /* overflow: hidden; */

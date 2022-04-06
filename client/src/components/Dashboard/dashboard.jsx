@@ -13,28 +13,33 @@ import COLORS from '../../styles/styled.constants';
 import OverviewChart from './OverviewChart';
 
 
+
+
 const DashboardWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100vh;
-  flex-direction: row-reverse;
+display: flex;
+  margin-top: 2rem; 
+  flex-direction: row;
+  flex-wrap: wrap;  
+  align-items: center;
+  justify-content: center; 
+  min-width: 300px; 
 `;
+
+
 const DashboardContainer = styled.div`
-  flex: 1;
   .dashboard--icon{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: center;  
   }
 `;
 
 const Graph = styled.div`
-  flex: 3;
-  flex-direction: column;
-  padding-top: 2rem;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .chart--img {
   }
 
@@ -62,21 +67,25 @@ const DashboardCard = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     background-color: #ebebeb;
     border-radius: 3px; 
-    padding: 1rem; 
-    width: 100%;
     min-width: 20rem;
     margin: 1rem;  
+  }
+
+  .chart-navigation-details{
+    display: flex;
+    flex-direction: row; 
+    flex-grow: 1; 
   }
 
   h3,
   h4 {
     text-align: center;
+    font-size: 1rem; 
   }
   .btn--icon {
-    font-size: 2rem;
     font-weight: 800;
   }
   .applied,
@@ -109,19 +118,26 @@ const DashboardCard = styled.div`
     }
     .btn--icon {
       color: white;
-      font-size: 2rem;
-      font-weight: 800;
+      font-size: 1rem;
+      font-weight: 600;
     }
   }
   .filter--num {
     flex: 0.5; 
     text-align: center;
-    font-weight: 900;
+    font-weight: 200;
     color: ${COLORS.button};
     font-size: 2rem;
+    max-width: 5rem;
+    min-width: 5rem;
   }
   h3 {
+    font-size: 1.5rem;
     margin:0px; 
+  }
+  h5{
+    font-size: 0.7rem;
+    margin-top:0px;
   }
 `;
 
@@ -193,60 +209,73 @@ const filterCompany = () => {
 
   
   return (
-    <>
+   
       <DashboardWrapper>
-        {/* Summary Panel */}
+        <Graph>
+            <OverviewChart
+              jobData={jobData} 
+              allJobStatus={JobStatus}
+            />
+        </Graph>
+        
+
         <DashboardContainer>
+        <div className="buttons-container">
           <DashboardCard>
             <div className='chart-navigation'>
-              <div>
+              <div className='chart-navigation-icon'>
                 <button onClick={() => filterAll()}><BiIcons.BiLeftArrowCircle /></button>
               </div>
-              <div className='filter--num'>{jobs.length}</div>
-              <div className='dashboard--icon' ><h3>Overview</h3></div>
+              <div className='chart-navigation-details'>
+                <div className='filter--num'>{jobs.length}</div>
+                <div className='dashboard--icon' ><h3>Overview</h3></div>
+              </div>
             </div>
 
             <div className='chart-navigation'>
-            <div>
-              <button  onClick={() => filterPosition()}><BiIcons.BiLeftArrowCircle /></button>
-            </div>
-              <div className='filter--num'> <BsIcons.BsFillPhoneFill /> </div>
-              <div className='dashboard--icon' ><h3>Position</h3></div>
+              <div className='chart-navigation-icon'>
+                <button  onClick={() => filterPosition()}><BiIcons.BiLeftArrowCircle /></button>
+              </div >
+              <div className='chart-navigation-details'>
+                <div className='filter--num'> <BsIcons.BsFillPhoneFill /> </div>
+                <div className='dashboard--icon' ><h3>Position</h3></div>
+              </div>
             </div>
 
             <div className='chart-navigation'>
-              <div>
+              <div className='chart-navigation-icon'>
                 <button onClick={() => filterCompany()}><BiIcons.BiLeftArrowCircle /></button>
               </div>
-              <div className='filter--num'><BsIcons.BsFillFileCodeFill /></div>
-                <div className='dashboard--icon'><h3>Companies</h3></div></div>
-
+              <div className='chart-navigation-details'>
+                <div className='filter--num'><BsIcons.BsFillFileCodeFill /></div>
+                <div className='dashboard--icon'><h3>Companies</h3></div>
+              </div>
+              </div>
+              
             <div className='chart-navigation'>
               <div className='filter--num'>
                 <div>
                   <FontAwesomeIcon icon={faCircleXmark} />
                 </div>
-                {filteredStatus('declined')}
+                <h3>{filteredStatus('declined')}</h3>
+                 <h5>Declined</h5>
               </div>
+              
               <div className='filter--num'>
                 <div>
                   <FontAwesomeIcon icon={faCircleCheck} />{' '}
                 </div>
-                {filteredStatus('accepted')}
+                <h3>{filteredStatus('accepted')}</h3>
+              <h5>Accepted</h5>
               </div>
             </div>
+
           </DashboardCard>
+        </div> 
         </DashboardContainer>
-        <Graph>
-          <div>
-            <OverviewChart
-              jobData={jobData} 
-              allJobStatus={JobStatus}
-            />
-          </div>
-        </Graph>
       </DashboardWrapper>
-    </>
+    
+  
   );
 };
 
