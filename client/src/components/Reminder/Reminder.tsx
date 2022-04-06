@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import styled from "styled-components";
 import * as FaIcons from "react-icons/fa";
 import moment from "moment";
+import { Job } from './../../interfaces';
 
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
@@ -40,9 +41,7 @@ width: 70%;
 height: 100vh;
 `;
 
-
-
-const Reminder = ({ jobs }) => {
+const Reminder = ({ jobs }: { jobs: Job[] }) => {
   //   const [event, setEvent] = useState({ title: "", start: "", end: "" });
   const [events, setEvents] = useState([
     ...jobs.filter((job) => job.date_interview && job),
@@ -55,7 +54,7 @@ const Reminder = ({ jobs }) => {
     end: moment(event["date_interview"]).toDate(),
   }));
 
- 
+
   console.log(interviews);
 
   return (
