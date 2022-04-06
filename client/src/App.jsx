@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Routes, BrowserRouter as Router, Navigate } from 'react-router-dom';
+
 import Dashboard from './components/Dashboard/dashboard';
 import EditForm from './components/EditForm/EditForm';
 import List from './components/List/List';
@@ -18,6 +19,9 @@ flex-direction: column;
 `;
 
 const App = () => {
+
+  const userId = localStorage.getItem('uid'); 
+
   const [jobs, setJobs] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [update, triggerUpdate] = useState();
@@ -46,7 +50,7 @@ const App = () => {
     setStateFunc();
   }, [update]);
 
-  return (
+  return userId ? (
     <>
       <AppWrapper>
         <GlobalStyle />
@@ -54,7 +58,9 @@ const App = () => {
           <Router>
             <Navbar />
             <Routes>
+              
               <Route exact path='/' element={<Landing />} />
+              
               <Route
                 exact
                 path='/dashboard'
@@ -98,6 +104,24 @@ const App = () => {
           </Router>
         </>
       </AppWrapper>
+    </>
+  ) : (
+    <>
+     <AppWrapper>
+        <GlobalStyle />
+    <Router>
+    <Navbar />
+      <Routes>
+        <Route exact path='/' element={<Landing />} />
+        <Route path='/dashboard' element={<Navigate to='/'></Navigate>} />
+        <Route path='/list' element={<Navigate to='/'></Navigate>} />
+        <Route path='/add' element={<Navigate to='/'></Navigate>} />
+        <Route path='/edit:id' element={<Navigate to='/'></Navigate>} />
+        <Route path='/reminder' element={<Navigate to='/'></Navigate>} />
+        <Route path='/*' element={<Navigate to='/'></Navigate>} />
+      </Routes>
+    </Router>
+    </AppWrapper>
     </>
   );
 };
