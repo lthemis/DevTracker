@@ -154,7 +154,7 @@ const FormComp = ({ jobs, setJobs, role }: { jobs: Job[], setJobs: any, role: st
   return (
     <Form>
       <form onSubmit={submitHandler} className='form--box'>
-        <div className='headerWrapper'>{role === 'add' ? <h1 className="header">Add a New Job</h1> : <h1>Edit job</h1>}</div>
+        <div className='headerWrapper'>{role === 'add' ? <h1 className="header">Add a New Job</h1> : <h1 className="header">Edit job</h1>}</div>
         <InputField identifier='company' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} defaultValue={formState.company} />
         <InputField identifier='position' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} defaultValue={formState.position} />
         <InputField identifier='status' changeHandler={changeHandler} blurHandler={blurHandler} isFieldInvalid={isFieldInvalid} defaultValue={formState.status} />
