@@ -1,6 +1,6 @@
 import React from 'react';
-import { authentification } from '../../firebase';
 import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+import { auth } from '../../firebase';
 import styled from 'styled-components';
 import COLORS from '../../styles/styled.constants';
 import { useNavigate } from 'react-router-dom';
@@ -28,8 +28,10 @@ function Login({ loggedIn, setLoggedIn, setJobs }) {
   const navigate = useNavigate();
   const SingInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(authentification, provider)
+    
+    signInWithPopup(auth, provider)
       .then(res => {
+        console.log(res);
         localStorage.setItem('uid', res.user.uid);
         localStorage.setItem('userPhoto', res.user.photoURL);
         localStorage.setItem('email', res.user.email);
@@ -42,7 +44,7 @@ function Login({ loggedIn, setLoggedIn, setJobs }) {
   };
 
   const LogOut = async () => {
-    signOut(authentification)
+    signOut(auth)
       .then(res => {
         setJobs([])
       })

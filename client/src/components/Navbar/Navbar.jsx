@@ -105,17 +105,15 @@ const NavbarWrapper = styled.div`
 
 const Navbar = () => {
   const [sidebar, setSidebar] = useState(false);
-
   const showSidebar = () => setSidebar(!sidebar);
   const hideSidebar = () => setSidebar(false);
-
   const [loggedIn, setLoggedIn] = useState(null);
 
   useEffect(() => {
-    localStorage.getItem('uid') ? setLoggedIn(true) : setLoggedIn(false);
+     localStorage.getItem('uid') ? setLoggedIn(true) : setLoggedIn(false);
   }, [loggedIn]);
-
   const userPhoto = localStorage.getItem('userPhoto');
+  console.log('photo',userPhoto);
   const userName = localStorage.getItem('userName');
   const email = localStorage.getItem('email');
 
@@ -144,7 +142,8 @@ const Navbar = () => {
                 <img
                   src={userPhoto}
                   alt='user'
-                  style={{ borderRadius: '100px' }}></img>
+                  style={{ borderRadius: '100px' }}
+                  referrerpolicy="no-referrer"/>
                 <p
                   style={{ color: 'white', fontSize: '0.8rem', margin: '5px' }}>
                   {userName}
