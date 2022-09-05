@@ -43,7 +43,6 @@ const CardWrapper = styled.div`
 const List = ({ jobs, setJobs }) => {
   let navigate = useNavigate();
   const [filter, setFilter] = useState(null);
-  console.log('JOBS', jobs);
   const editHandler = id => {
     navigate(`/edit/${id}`);
   };
@@ -68,12 +67,11 @@ const List = ({ jobs, setJobs }) => {
     'accepted',
     'interested',
   ];
-
   return (
     <ListWrapper>
       <PositionButton>
-        {btnValues.map(value => {
-          return <Btn value={value} setFilter={setFilter}></Btn>;
+        {btnValues.map((value, i) => {
+          return <Btn value={value} setFilter={setFilter} key={i}></Btn>;
         })}
       </PositionButton>
 
@@ -85,12 +83,13 @@ const List = ({ jobs, setJobs }) => {
             }
             return job.position === filter || job.status === filter;
           })
-          .map(job => {
+          .map((job,i) => {
             return (
               <Card
                 job={job}
                 editHandler={editHandler}
-                deleteHandler={deleteHandler}></Card>
+                deleteHandler={deleteHandler}
+                key={i}></Card>
             );
           })}
       </CardWrapper>

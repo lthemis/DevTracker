@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import background from '../../img/background--img.jpg';
 import logo from '../../assets/DevTrackerLogoComplete.png';
 
 const LandingWrapper = styled.div`

@@ -6,7 +6,6 @@ const jobService = {
 
   getAllJobs(uid: string) {
     return fetch(`${baseURL}/list/${uid}`)
-
       .then(response => {
         if (response.status < 300) {
           return response.json()

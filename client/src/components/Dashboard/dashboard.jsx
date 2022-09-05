@@ -145,7 +145,7 @@ const Dashboard = ({ jobs }) => {
 
 
 const filteredStatus = str =>
-[...jobs].filter(job => job.status === str.length)
+jobs ? [...jobs].filter(job => job.status === str).length : null;
 
 const [JobStatus, setJobStatus] = useState([])
 const [jobData, setJobData] = useState([])
@@ -157,7 +157,7 @@ useEffect(() => {
 const filterAll = () => {
   const result = jobs.map((job) => {
       return job.status; 
-  }).sort()
+  }).sort();
  
   let unique = [...new Set(result)]
   
@@ -227,7 +227,7 @@ const filterCompany = () => {
                 <button onClick={() => filterAll()}><BiIcons.BiLeftArrowCircle /></button>
               </div>
               <div className='chart-navigation-details'>
-                <div className='filter--num'>{jobs.length}</div>
+                <div className='filter--num'>{jobs ? jobs.length : null}</div>
                 <div className='dashboard--icon' ><h3>Overview</h3></div>
               </div>
             </div>

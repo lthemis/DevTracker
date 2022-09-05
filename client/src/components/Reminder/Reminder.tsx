@@ -1,52 +1,63 @@
-import format from "date-fns/format";
-import getDay from "date-fns/getDay";
-import parse from "date-fns/parse";
-import startOfWeek from "date-fns/startOfWeek";
-import React, { useState } from "react";
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import "react-datepicker/dist/react-datepicker.css";
+
+import React, { useState, useEffect } from "react";
+import FullCalendar from '@fullcalendar/react' // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import styled from "styled-components";
 import * as FaIcons from "react-icons/fa";
 import moment from "moment";
 import { Job } from './../../interfaces';
-
-const locales = {
-  "en-US": require("date-fns/locale/en-US"),
-};
-
-const localizer = dateFnsLocalizer({
-  format,
-  parse,
-  startOfWeek,
-  getDay,
-  locales,
-});
+import COLORS from '../../styles/styled.constants';
 
 const ReminderWrapper = styled.div`
-text-align: center;
-margin: 0;
-h2 {
-  font-size: 1.7em;
-  padding-top: 2rem;
-}
-span {
-  padding-left: 1rem;
-}
+height: 100%;
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
 `;
 
-const CalendarWrapper = styled.div`
-margin: 0 auto;
-width: 70%;
-height: 100vh;
+const CalendarContainer = styled.div`
+display: flex;
+flex-direction: column;
+width: 80%;
+height: 100%;
+.fc-toolbar-chunk {
+  display: flex;
+}
+.fc-col-header-cell-cushion  {
+  color: ${COLORS.textSecondary};
+}
+.fc-daygrid-day-number {
+  color: ${COLORS.textSecondary};
+}
+.fc-toolbar-title {
+  color: ${COLORS.textSecondary};
+}
+margin: 1rem;
 `;
+
+const TitleContainer = styled.div`
+display: flex;
+width: 80%;
+justify-content: center;
+align-items: center;
+color: white;
+`;
+
+const Title = styled.h2`
+margin-bottom: 0;
+margin-left: 1rem;
+`;
+
 
 const Reminder = ({ jobs }: { jobs: Job[] }) => {
-  //   const [event, setEvent] = useState({ title: "", start: "", end: "" });
+  useEffect(() =>
+    setEvents(jobs), [jobs])
+
   const [events, setEvents] = useState(jobs && [
     ...jobs.filter((job) => job.date_interview && job),
   ]);
-  console.log(events);
 
   const interviews = events && [...events].map((event) => ({
     title: event.company,
@@ -54,25 +65,24 @@ const Reminder = ({ jobs }: { jobs: Job[] }) => {
     end: moment(event["date_interview"]).toDate(),
   }));
 
-
-  console.log(interviews);
-
   return (
     <>
       <ReminderWrapper>
-        <h2>
+        <TitleContainer>
           <FaIcons.FaCalendarAlt />
-          <span>Interview Reminders</span>
-        </h2>
-        <CalendarWrapper>
-          <Calendar
-            localizer={localizer}
+          <Title>
+            Interview Reminders
+          </Title>
+        </TitleContainer>
+
+        <CalendarContainer>
+          <FullCalendar
+            plugins={[dayGridPlugin]}
+            initialView="dayGridMonth"
             events={interviews}
-            startAccessor="start"
-            endAccessor="end"
-            style={{ height: 500, margin: "50px" }}
+            height='80%'
           />
-        </CalendarWrapper>
+        </CalendarContainer>
       </ReminderWrapper>
     </>
   );

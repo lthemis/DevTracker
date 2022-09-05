@@ -3,7 +3,7 @@ import { Route, Routes, BrowserRouter as Router, Navigate } from 'react-router-d
 
 import Dashboard from './components/Dashboard/dashboard';
 import List from './components/List/List';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/Navbar/Navbar'
 import Reminder from './components/Reminder/Reminder';
 import jobService from './service/jobService';
 import GlobalStyle from './styles/styled.global';
@@ -20,9 +20,7 @@ flex-direction: column;
 const App = () => {
 
   const userId = localStorage.getItem('uid'); 
-
   const [jobs, setJobs] = useState([]);
-
   const getUid = async () => {
     const uid = await localStorage.getItem('uid');
     return uid;

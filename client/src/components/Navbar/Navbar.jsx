@@ -114,7 +114,6 @@ const Navbar = () => {
      localStorage.getItem('uid') ? setLoggedIn(true) : setLoggedIn(false);
   }, [loggedIn]);
   const userPhoto = localStorage.getItem('userPhoto');
-  console.log('photo',userPhoto);
   const userName = localStorage.getItem('userName');
   const email = localStorage.getItem('email');
 
