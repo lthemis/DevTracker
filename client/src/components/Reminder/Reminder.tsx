@@ -43,12 +43,12 @@ height: 100vh;
 
 const Reminder = ({ jobs }: { jobs: Job[] }) => {
   //   const [event, setEvent] = useState({ title: "", start: "", end: "" });
-  const [events, setEvents] = useState([
+  const [events, setEvents] = useState(jobs && [
     ...jobs.filter((job) => job.date_interview && job),
   ]);
   console.log(events);
 
-  const interviews = [...events].map((event) => ({
+  const interviews = events && [...events].map((event) => ({
     title: event.company,
     start: moment(event["date_interview"]).toDate(),
     end: moment(event["date_interview"]).toDate(),

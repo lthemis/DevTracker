@@ -43,7 +43,7 @@ const NavbarWrapper = styled.div`
   }
   .nav-menu {
     z-index: 100;
-    background-color: #060b26;
+    border-right: 4px solid rgb(116,255,122);
     width: 14rem;
     height: 100vh;
     display: flex;
@@ -57,6 +57,7 @@ const NavbarWrapper = styled.div`
     z-index: 100;
     left: 0;
     transition: 350ms;
+    background-color:#242933;
   }
   .nav-text {
     display: flex;
@@ -143,7 +144,7 @@ const Navbar = () => {
                   src={userPhoto}
                   alt='user'
                   style={{ borderRadius: '100px' }}
-                  referrerpolicy="no-referrer"/>
+                  referrerPolicy="no-referrer"/>
                 <p
                   style={{ color: 'white', fontSize: '0.8rem', margin: '5px' }}>
                   {userName}

@@ -83,9 +83,6 @@ const Landing = () => {
           </h3>
         </div>
       </div>
-      <div className='right'>
-        <img src={background} alt='cover-img' />
-      </div>
     </LandingWrapper>
   );
 };

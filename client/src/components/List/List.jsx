@@ -78,7 +78,7 @@ const List = ({ jobs, setJobs }) => {
       </PositionButton>
 
       <CardWrapper>
-        {jobs
+        {jobs && jobs
           .filter(job => {
             if (filter === null) {
               return job;

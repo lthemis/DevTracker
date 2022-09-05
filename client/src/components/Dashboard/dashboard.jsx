@@ -145,7 +145,7 @@ const Dashboard = ({ jobs }) => {
 
 
 const filteredStatus = str =>
-[...jobs].filter(job => job.status === str).length
+[...jobs].filter(job => job.status === str.length)
 
 const [JobStatus, setJobStatus] = useState([])
 const [jobData, setJobData] = useState([])
