@@ -15,7 +15,7 @@ const FormField = styled.div`
     border-radius: 3px;
     padding: 1rem;
     margin-bottom: 1.1rem;
-    border: none;
+    border: 1px solid ${COLORS.title};
     width:100%;
   }
   input:focus {
