@@ -7,7 +7,7 @@ import { SidebarData } from './SideBarData';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import COLORS from '../../styles/styled.constants';
-import Login from '../Login/Login';
+import { Login } from '../Login/Login';
 import logo from '../../assets/DevTrackerLogo.png';
 import textLogo from '../../assets/DevTrackerText.png';
 
@@ -108,10 +108,10 @@ const Navbar = () => {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
   const hideSidebar = () => setSidebar(false);
-  const [loggedIn, setLoggedIn] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-     localStorage.getItem('uid') ? setLoggedIn(true) : setLoggedIn(false);
+    localStorage.getItem('uid') ? setLoggedIn(true) : setLoggedIn(false);
   }, [loggedIn]);
   const userPhoto = localStorage.getItem('userPhoto');
   const userName = localStorage.getItem('userName');
@@ -140,10 +140,10 @@ const Navbar = () => {
             {loggedIn ? (
               <div style={{ textAlign: 'center' }}>
                 <img
-                  src={userPhoto}
+                  src={userPhoto ? userPhoto : undefined}
                   alt='user'
                   style={{ borderRadius: '100px' }}
-                  referrerPolicy="no-referrer"/>
+                  referrerPolicy="no-referrer" />
                 <p
                   style={{ color: 'white', fontSize: '0.8rem', margin: '5px' }}>
                   {userName}
@@ -162,9 +162,9 @@ const Navbar = () => {
             )}
             <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn}></Login>
             {loggedIn ? (
-              SidebarData.map((item, index) => {
+              SidebarData.map((item, i: number) => {
                 return (
-                  <li key={index} className={item.cName}>
+                  <li key={i} className={item.cName}>
                     <Link to={item.path} onClick={() => hideSidebar()}>
                       {item.icon}
                       <span>{item.title}</span>

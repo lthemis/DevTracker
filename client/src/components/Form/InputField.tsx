@@ -147,7 +147,7 @@ const InputField = ({ identifier, defaultValue, changeHandler, blurHandler, isFi
   )
   if (identifier === 'date_interview') return (
     <FormField>
-      <label htmlFor='date_interview'>Select date of application</label>
+      <label htmlFor='date_interview'>Select date of the interview</label>
       <input
         defaultValue={dayjs(defaultValue).format('YYYY-MM-DDTH:m')}
         data-testid='date_interview'

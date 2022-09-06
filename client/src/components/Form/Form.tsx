@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useNavigate, useParams } from 'react-router';
 import { useState } from 'react';
-import { Job } from '../../interfaces';
 import Button from './Button';
 import InputField from './InputField';
 import COLORS from '../../styles/styled.constants';

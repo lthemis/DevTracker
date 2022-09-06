@@ -5,7 +5,6 @@ import COLORS from '../../styles/styled.constants';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
-import { Job } from '../../interfaces';
 
 const Form = styled.div`
   background-color: #ebebeb;

@@ -5,7 +5,6 @@ import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import styled from "styled-components";
 import * as FaIcons from "react-icons/fa";
 import moment from "moment";
-import { Job } from './../../interfaces';
 import COLORS from '../../styles/styled.constants';
 
 const ReminderWrapper = styled.div`

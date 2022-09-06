@@ -1,5 +1,5 @@
 import React from 'react';
-import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+import { signInWithPopup, GoogleAuthProvider, signOut, UserCredential } from 'firebase/auth';
 import { auth } from '../../firebase';
 import styled from 'styled-components';
 import COLORS from '../../styles/styled.constants';
@@ -23,18 +23,23 @@ const LoginButton = styled.div`
     cursor: pointer;
   }
 `;
+interface props {
+  loggedIn: any
+  setLoggedIn: any
+  setJobs?: any
+}
 
-function Login({ loggedIn, setLoggedIn, setJobs }) {
+export function Login({ loggedIn, setLoggedIn, setJobs }: props) {
   const navigate = useNavigate();
   const SingInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
-    
+
     signInWithPopup(auth, provider)
-      .then(res => {
+      .then((res: UserCredential) => {
         console.log(res);
         localStorage.setItem('uid', res.user.uid);
-        localStorage.setItem('userPhoto', res.user.photoURL);
-        localStorage.setItem('email', res.user.email);
+        res.user.photoURL && localStorage.setItem('userPhoto', res.user.photoURL);
+        res.user.email && localStorage.setItem('email', res.user.email);
         setLoggedIn(true);
         return;
       })
@@ -73,4 +78,4 @@ function Login({ loggedIn, setLoggedIn, setJobs }) {
   );
 }
 
-export default Login;
+// export default Login;
