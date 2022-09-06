@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, BrowserRouter as Router, Navigate } from 'react-router-dom';
 
-import Dashboard from './components/Dashboard/dashboard';
+import Dashboard from './components/Dashboard/Dashboard';
 import List from './components/List/List';
 import Navbar from './components/Navbar/Navbar'
 import Reminder from './components/Reminder/Reminder';

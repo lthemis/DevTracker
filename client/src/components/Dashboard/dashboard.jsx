@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import * as AiIcons from 'react-icons/ai';
 import * as BsIcons from 'react-icons/bs';
 import * as BiIcons from 'react-icons/bi';
@@ -12,9 +11,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import COLORS from '../../styles/styled.constants';
 import OverviewChart from './OverviewChart';
 
-
-
-
 const DashboardWrapper = styled.div`
 display: flex;
   margin-top: 2rem; 
@@ -23,8 +19,8 @@ display: flex;
   align-items: center;
   justify-content: center; 
   min-width: 300px; 
+  height: 100%;
 `;
-
 
 const DashboardContainer = styled.div`
   .dashboard--icon{
@@ -55,7 +51,6 @@ const Graph = styled.div`
 `;
 
 const DashboardCard = styled.div`
-
   justify-content: center;
   padding: 1rem;
   display: flex;
@@ -141,90 +136,51 @@ const DashboardCard = styled.div`
   }
 `;
 
-const Dashboard = ({ jobs }) => {
+const Dashboard = ({jobs}) => {
+  const filteredStatus = (str) => {
+    return jobs ? [...jobs].filter(job => job.status === str).length : null;
+  }
 
+  const [JobStatus, setJobStatus] = useState([])
+  const [jobData, setJobData] = useState([])
 
-const filteredStatus = str =>
-jobs ? [...jobs].filter(job => job.status === str).length : null;
+  useEffect(() => {
+    filterJobsData('status')
+  }, []);
 
-const [JobStatus, setJobStatus] = useState([])
-const [jobData, setJobData] = useState([])
+  const filterJobsData = (filterType) => {
+    const result = jobs.map((job) => {
+      return job[filterType];
+    }).sort()
 
-useEffect(() => {
-  filterAll();
-},[])
+    let unique = [...new Set(result)]
+    const counts = {};
+    result.forEach((x) => { 
+      return counts[x] = (counts[x] || 0) + 1; });
 
-const filterAll = () => {
-  const result = jobs.map((job) => {
-      return job.status; 
-  }).sort();
- 
-  let unique = [...new Set(result)]
-  
-  const counts = {}; 
-  result.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
-  console.log(counts, 'this is a test');
-  const array = Object.keys(counts).map(function(key) {return counts[key]}); 
-  
-  setJobData(array); 
-  setJobStatus(unique)
-}
+    const array = Object.keys(counts).map(function (key) { return counts[key] });
 
-// const [array, unique ] = filterAll(jobs); 
+    setJobData(array);
+    setJobStatus(unique)
+  };
 
-const filterPosition = () => {
-  const result = jobs.map((job) => {
-      return job.position; 
-  }).sort()
- 
-  let unique = [...new Set(result)]
-  
-  const counts = {}; 
-  result.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
-  console.log(counts, 'this is a test');
-  const array = Object.keys(counts).map(function(key) {return counts[key]}); 
-  
-  setJobData(array); 
-  setJobStatus(unique)
-}
-
-
-
-const filterCompany = () => {
-  const result = jobs.map((job) => {
-      return job.company; 
-  }).sort()
- 
-  let unique = [...new Set(result)]
-  
-  const counts = {}; 
-  result.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
-  console.log(counts, 'this is a test');
-  const array = Object.keys(counts).map(function(key) {return counts[key]}); 
-  
-  setJobData(array); 
-  setJobStatus(unique)
-}
-
-
-  
   return (
-   
-      <DashboardWrapper>
-        <Graph>
-            <OverviewChart
-              jobData={jobData} 
-              allJobStatus={JobStatus}
-            />
-        </Graph>
-        
+    <DashboardWrapper>
+      <Graph>
+        <OverviewChart
+          jobData={jobData}
+          allJobStatus={JobStatus}
+        />
+      </Graph>
 
-        <DashboardContainer>
+
+      <DashboardContainer>
         <div className="buttons-container">
           <DashboardCard>
             <div className='chart-navigation'>
               <div className='chart-navigation-icon'>
-                <button onClick={() => filterAll()}><BiIcons.BiLeftArrowCircle /></button>
+                <button onClick={() => filterJobsData('status')}><BiIcons.BiLeftArrowCircle /></button>
+
               </div>
               <div className='chart-navigation-details'>
                 <div className='filter--num'>{jobs ? jobs.length : null}</div>
@@ -234,7 +190,7 @@ const filterCompany = () => {
 
             <div className='chart-navigation'>
               <div className='chart-navigation-icon'>
-                <button  onClick={() => filterPosition()}><BiIcons.BiLeftArrowCircle /></button>
+                <button onClick={() => filterJobsData('position')}><BiIcons.BiLeftArrowCircle /></button>
               </div >
               <div className='chart-navigation-details'>
                 <div className='filter--num'> <BsIcons.BsFillPhoneFill /> </div>
@@ -244,38 +200,39 @@ const filterCompany = () => {
 
             <div className='chart-navigation'>
               <div className='chart-navigation-icon'>
-                <button onClick={() => filterCompany()}><BiIcons.BiLeftArrowCircle /></button>
+                <button onClick={() => filterJobsData('company')}><BiIcons.BiLeftArrowCircle /></button>
+
               </div>
               <div className='chart-navigation-details'>
                 <div className='filter--num'><BsIcons.BsFillFileCodeFill /></div>
                 <div className='dashboard--icon'><h3>Companies</h3></div>
               </div>
-              </div>
-              
+            </div>
+
             <div className='chart-navigation'>
               <div className='filter--num'>
                 <div>
                   <FontAwesomeIcon icon={faCircleXmark} />
                 </div>
                 <h3>{filteredStatus('declined')}</h3>
-                 <h5>Declined</h5>
+                <h5>Declined</h5>
               </div>
-              
+
               <div className='filter--num'>
                 <div>
                   <FontAwesomeIcon icon={faCircleCheck} />{' '}
                 </div>
                 <h3>{filteredStatus('accepted')}</h3>
-              <h5>Accepted</h5>
+                <h5>Accepted</h5>
               </div>
             </div>
 
           </DashboardCard>
-        </div> 
-        </DashboardContainer>
-      </DashboardWrapper>
-    
-  
+        </div>
+      </DashboardContainer>
+    </DashboardWrapper>
+
+
   );
 };
 
