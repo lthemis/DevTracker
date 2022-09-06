@@ -136,44 +136,47 @@ const DashboardCard = styled.div`
   }
 `;
 
-const Dashboard = ({jobs}) => {
-  const filteredStatus = (str) => {
+
+const Dashboard = ({ jobs }: { jobs: Job[] }) => {
+
+  const filteredStatus = (str: string) => {
     return jobs ? [...jobs].filter(job => job.status === str).length : null;
   }
 
-  const [JobStatus, setJobStatus] = useState([])
-  const [jobData, setJobData] = useState([])
+  const [JobStatus, setJobStatus] = useState<string[]>([])
+  const [filteredJobsData, setFilteredJobsData] = useState<number[]>([])
 
   useEffect(() => {
     filterJobsData('status')
   }, []);
 
-  const filterJobsData = (filterType) => {
-    const result = jobs.map((job) => {
-      return job[filterType];
+  const filterJobsData = (filterType: string) => {
+    // get an array of job properties relevant for a given filter, e.g. it's application status, company name or position applied
+    const filteredJobProperties = jobs.map((job) => {
+      return job[filterType as keyof Job];
     }).sort()
+    let uniqueJobProperties = [...new Set(filteredJobProperties)] as string[]
+    const counts: Counts = {};
+    // populate counts object with property(filter type)-value(count of occurrences) pairs, e.g. {applied: 1, phone-interview: 1, technical interview: 2}
+    filteredJobProperties.forEach((filterType = 'status') => {
+      return counts[filterType as keyof Counts] = (counts[filterType as keyof Counts] || 0) + 1;
+    });
 
-    let unique = [...new Set(result)]
-    const counts = {};
-    result.forEach((x) => { 
-      return counts[x] = (counts[x] || 0) + 1; });
-
-    const array = Object.keys(counts).map(function (key) { return counts[key] });
-
-    setJobData(array);
-    setJobStatus(unique)
+    const array = Object.keys(counts).map((key) => { return counts[key as keyof Counts] }) as number[];
+    // get an array of values to be passed to the OverviewChart component. 
+    setFilteredJobsData(array);
+    // get an array of keys to be passed to the OverviewChart component. 
+    setJobStatus(uniqueJobProperties)
   };
 
   return (
     <DashboardWrapper>
       <Graph>
         <OverviewChart
-          jobData={jobData}
-          allJobStatus={JobStatus}
+          jobData={filteredJobsData && filteredJobsData}
+          allJobStatus={JobStatus && JobStatus}
         />
       </Graph>
-
-
       <DashboardContainer>
         <div className="buttons-container">
           <DashboardCard>
@@ -231,8 +234,6 @@ const Dashboard = ({jobs}) => {
         </div>
       </DashboardContainer>
     </DashboardWrapper>
-
-
   );
 };
 

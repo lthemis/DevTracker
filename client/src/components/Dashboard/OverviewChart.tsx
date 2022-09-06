@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "chart.js/auto";
 import { Doughnut } from "react-chartjs-2";
 import { Chart, ArcElement } from "chart.js";
@@ -24,16 +24,14 @@ background-color: white;
 `;
 
 
-const OverviewChart = ({ jobData, allJobStatus }) => {
+const OverviewChart = ({ jobData, allJobStatus }: { jobData: number[], allJobStatus: string[] }) => {
+  // const OverviewChart = ({ jobData, allJobStatus }) => {
 
-const [testJobData, setTestJobData] = useState([]); 
+  const [testJobData, setTestJobData] = useState<number[]>([]);
 
-useEffect(() => {
- 
-  setTestJobData(jobData);
-
-}, [jobData])
-
+  useEffect(() => {
+    setTestJobData(jobData);
+  }, [jobData])
 
   return (
     <>
@@ -67,8 +65,8 @@ useEffect(() => {
               },
             }}
             data={{
-              labels: [ 
-              ...allJobStatus
+              labels: [
+                ...allJobStatus
               ],
               datasets: [
                 {

@@ -20,3 +20,7 @@ interface Job {
   date_applied: string;
   date_interview: string;
 }
+
+interface Counts {
+  string?: number
+}
