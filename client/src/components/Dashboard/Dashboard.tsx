@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import * as AiIcons from 'react-icons/ai';
 import * as BsIcons from 'react-icons/bs';
 import * as BiIcons from 'react-icons/bi';
 import styled from 'styled-components';
@@ -136,7 +135,6 @@ const DashboardCard = styled.div`
   }
 `;
 
-
 const Dashboard = ({ jobs }: { jobs: Job[] }) => {
 
   const filteredStatus = (str: string) => {
@@ -149,6 +147,7 @@ const Dashboard = ({ jobs }: { jobs: Job[] }) => {
   useEffect(() => {
     filterJobsData('status')
   }, []);
+  const filterTypes = ['status', 'position', 'company'];
 
   const filterJobsData = (filterType: string) => {
     // get an array of job properties relevant for a given filter, e.g. it's application status, company name or position applied
@@ -162,9 +161,9 @@ const Dashboard = ({ jobs }: { jobs: Job[] }) => {
       return counts[filterType as keyof Counts] = (counts[filterType as keyof Counts] || 0) + 1;
     });
 
-    const array = Object.keys(counts).map((key) => { return counts[key as keyof Counts] }) as number[];
+    const countedOccurrences = Object.keys(counts).map((key) => { return counts[key as keyof Counts] }) as number[];
     // get an array of values to be passed to the OverviewChart component. 
-    setFilteredJobsData(array);
+    setFilteredJobsData(countedOccurrences);
     // get an array of keys to be passed to the OverviewChart component. 
     setJobStatus(uniqueJobProperties)
   };
@@ -180,37 +179,17 @@ const Dashboard = ({ jobs }: { jobs: Job[] }) => {
       <DashboardContainer>
         <div className="buttons-container">
           <DashboardCard>
-            <div className='chart-navigation'>
-              <div className='chart-navigation-icon'>
-                <button onClick={() => filterJobsData('status')}><BiIcons.BiLeftArrowCircle /></button>
-
+            {filterTypes.map((type, i) => (
+              <div key={i} className='chart-navigation'>
+                <div className='chart-navigation-icon'>
+                  <button onClick={() => filterJobsData(type)}><BiIcons.BiLeftArrowCircle /></button>
+                </div>
+                <div className='chart-navigation-details'>
+                  <div className='filter--num'><BsIcons.BsFillFileCodeFill /></div>
+                  <div className='dashboard--icon'><h3>{type.split('')[0].toUpperCase() + type.substring(1)}</h3></div>
+                </div>
               </div>
-              <div className='chart-navigation-details'>
-                <div className='filter--num'>{jobs ? jobs.length : null}</div>
-                <div className='dashboard--icon' ><h3>Overview</h3></div>
-              </div>
-            </div>
-
-            <div className='chart-navigation'>
-              <div className='chart-navigation-icon'>
-                <button onClick={() => filterJobsData('position')}><BiIcons.BiLeftArrowCircle /></button>
-              </div >
-              <div className='chart-navigation-details'>
-                <div className='filter--num'> <BsIcons.BsFillPhoneFill /> </div>
-                <div className='dashboard--icon' ><h3>Position</h3></div>
-              </div>
-            </div>
-
-            <div className='chart-navigation'>
-              <div className='chart-navigation-icon'>
-                <button onClick={() => filterJobsData('company')}><BiIcons.BiLeftArrowCircle /></button>
-
-              </div>
-              <div className='chart-navigation-details'>
-                <div className='filter--num'><BsIcons.BsFillFileCodeFill /></div>
-                <div className='dashboard--icon'><h3>Companies</h3></div>
-              </div>
-            </div>
+            ))}
 
             <div className='chart-navigation'>
               <div className='filter--num'>
@@ -229,7 +208,6 @@ const Dashboard = ({ jobs }: { jobs: Job[] }) => {
                 <h5>Accepted</h5>
               </div>
             </div>
-
           </DashboardCard>
         </div>
       </DashboardContainer>
