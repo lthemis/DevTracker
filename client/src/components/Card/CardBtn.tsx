@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+// import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import {
+  IconLookup,
+  IconDefinition,
+  findIconDefinition,
+} from '@fortawesome/fontawesome-svg-core';
 
 const Icon = styled.div`
   font-size: 1.5em;
@@ -23,7 +28,7 @@ export const CardBtn = ({
   job,
 }: {
   handler: FunctionType<string>;
-  icon: IconDefinition;
+  icon: any;
   job: Job;
 }) => {
   return (

@@ -146,20 +146,23 @@ const Dashboard = ({ jobs }: { jobs: Job[] }) => {
   const filterJobsData = useCallback(
     (filterType: string) => {
       // get an array of job properties relevant for a given filter, e.g. it's application status, company name or position applied
-      const filteredJobProperties = jobs
-        .map((job) => {
-          return job[filterType as keyof Job];
-        })
-        .sort();
+      const filteredJobProperties =
+        jobs &&
+        jobs
+          .map((job) => {
+            return job[filterType as keyof Job];
+          })
+          .sort();
       const uniqueJobProperties = [
         ...new Set(filteredJobProperties),
       ] as string[];
       const counts: Counts = {};
       // populate counts object with property(filter type)-value(count of occurrences) pairs, e.g. {applied: 1, phone-interview: 1, technical interview: 2}
-      filteredJobProperties.forEach((filterType = 'status') => {
-        return (counts[filterType as keyof Counts] =
-          (counts[filterType as keyof Counts] || 0) + 1);
-      });
+      filteredJobProperties &&
+        filteredJobProperties.forEach((filterType = 'status') => {
+          return (counts[filterType as keyof Counts] =
+            (counts[filterType as keyof Counts] || 0) + 1);
+        });
       const countedOccurrences = Object.keys(counts).map((key) => {
         return counts[key as keyof Counts];
       }) as number[];

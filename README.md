@@ -1,17 +1,9 @@
-# DevTracker!
+# DevTracker
 
 <p align="center" style="background-color: black">
   <img src="client/src/assets/DevTrackerLogo.png" width="200"/>
 </p>
 DevTracker is a companion app for software engineers who are active one the job market. It supports them by managing job applications, reminding them about upcoming interviews, and archiving recruitment information. 
-
-• Implemented automated integration and unit tests for all API endpoints and key front-end react components. 
-• Performed a major refactor of legacy code following the DRY/SOLID method design pattern resulting in fewer API calls and a cleaner, more readable codebase.
-• Refactored legacy code following the DRY/SOLID method design pattern and moved the project to TypeScript resulting in fewer API calls and a cleaner codebase.
-• Utilized tools such as Postman and Chrome Dev tools to isolate and debug issues.
-
-• Tech Stack: React, TypeScript,, Recharts, Jest, Cypress, SuperTest, Express, MongoDB.
-
 ## Screenshots
 
 <p align="center">
@@ -26,13 +18,19 @@ DevTracker is a companion app for software engineers who are active one the job 
     git clone https://github.com/lthemis/DevTracker.git
     ```
 
-2. Install dependencies in both client and server folders.
+2. Install Docker
 
     ```bash
-    npm install
+    https://docs.docker.com/get-docker/
+    ```
+3. Create Firebase account, add a new project, click "Web" icon, register app under any name and copy contents of firebaseConfig. Click 'Continue to the console'. Click "Authentication", then "Sign-in method" and enable Google as provider. Finally, go to Settings, then click "Authorised domains" and add "localhost" if it's not there by default. 
+
+    ```bash
+    https://console.firebase.google.com/
     ```
 
-3. Create .env file in client folder
+
+4. Create .env file in client folder and paste previously copied contents of firebaseConfig
 
     ```bash
     REACT_APP_apiKey=
@@ -44,27 +42,11 @@ DevTracker is a companion app for software engineers who are active one the job 
     REACT_APP_measurementId=
     ```
 
-4. Create .env file in server folder
+5. Launch Docker application
 
-    ```bash
-    PORT=
-    DB_MONGO_HOST=
-    ```
+6. Make sure that ports: 3000, 3001 and 27017 are available. 
 
-5. Install the [Mongo](https://www.mongodb.com/docs/manual/installation/) database on your machine
-
-
-6. Start the server. From the server folder, run
-
-    ```bash
-    npx nodemon ./index.ts
-    ```
-
-7. Start the client. From the client folder, run
-
-    ```bash
-    npm start
-    ```
+7. From the root folder run command: "docker-compose up"
 
 ## Tech Stack
 
