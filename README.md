@@ -15,7 +15,7 @@ DevTracker is a companion app for software engineers who are active one the job 
 ## Screenshots
 
 <p align="center">
-  <img src="" alt="appPhoto" />
+  <img src="./client/public/DevTracker.png" alt="appPhoto" />
 </p>
 
 ## Getting Started

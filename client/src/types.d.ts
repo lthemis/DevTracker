@@ -19,8 +19,13 @@ interface Job {
   status: string;
   date_applied: string;
   date_interview: string;
+  updatedAt?:string;
 }
 
 interface Counts {
   string?: number
+}
+
+interface jobHandler {
+  (id: string):null
 }

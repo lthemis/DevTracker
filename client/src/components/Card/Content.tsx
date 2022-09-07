@@ -36,12 +36,12 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const Container = styled.div ` 
+const Container = styled.div` 
   width: 100%;
 `;
 
 
-export const Content = ({ job }) => {
+export const Content = ({ job }: { job: Job }) => {
   return (
     <Container>
       <TitleWrapper>
@@ -56,21 +56,21 @@ export const Content = ({ job }) => {
       <ContentWrapper>
         <div>
           <FontAwesomeIcon icon={faCode} className='sub-icon' />
-          <CompanySubTitle style={{ fontSize:'1rem'}} >{job.position}</CompanySubTitle>
+          <CompanySubTitle style={{ fontSize: '1rem' }} >{job.position}</CompanySubTitle>
         </div>
         <div>
           <FontAwesomeIcon icon={faClipboard} className='sub-icon' />
-          <CompanySubTitle style={{marginLeft:'10px', fontSize:'1rem'}}>{job.status}</CompanySubTitle>
+          <CompanySubTitle style={{ marginLeft: '10px', fontSize: '1rem' }}>{job.status}</CompanySubTitle>
         </div>
         <div>
           <FontAwesomeIcon icon={faCalendarDays} className='sub-icon' />
-          <CompanySubTitle style={{marginLeft:'10px', fontSize:'1rem'}}>
+          <CompanySubTitle style={{ marginLeft: '10px', fontSize: '1rem' }}>
             {moment(job.date_applied).format('ll')}
           </CompanySubTitle>
         </div>
         <div>
           <FontAwesomeIcon icon={faBell} className='sub-icon' />
-          <CompanySubTitle style={{marginLeft:'10px', fontSize:'1rem'}}>
+          <CompanySubTitle style={{ marginLeft: '10px', fontSize: '1rem' }}>
             {moment(job.date_interview).format('llll')}
           </CompanySubTitle>
         </div>

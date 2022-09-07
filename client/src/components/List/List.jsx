@@ -43,6 +43,7 @@ const CardWrapper = styled.div`
 const List = ({ jobs, setJobs }) => {
   let navigate = useNavigate();
   const [filter, setFilter] = useState(null);
+  
   const editHandler = id => {
     navigate(`/edit/${id}`);
   };

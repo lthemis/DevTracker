@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 const Icon = styled.div`
   font-size: 1.5em;
@@ -17,10 +18,10 @@ button {
 }
 `;
 
-export const CardBtn = ({ handler, icon, job }) => {
+export const CardBtn = ({ handler, icon, job }: { handler: jobHandler, icon: IconDefinition, job: Job }) => {
   return (
     <Icon >
-      <button className="edit-job-button" onClick={() => handler(job._id)} >
+      <button className="edit-job-button" onClick={() => job._id && handler(job._id)} >
         <FontAwesomeIcon icon={icon} />
       </button>
     </Icon>
