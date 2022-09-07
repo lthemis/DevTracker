@@ -56,7 +56,7 @@ const CardSection = styled.div`
   align-items: center;
 `;
 
-export const Card = ({ job, editHandler, deleteHandler }: { job: Job, editHandler: jobHandler, deleteHandler: jobHandler }) => {
+export const Card = ({ job, editHandler, deleteHandler }: { job: Job, editHandler: FunctionType<string>, deleteHandler: FunctionType<string> }) => {
   return (
     <CompanyList key={job._id}>
       <CompanyWrapper>

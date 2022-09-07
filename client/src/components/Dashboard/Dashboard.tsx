@@ -155,7 +155,6 @@ const Dashboard = ({ jobs }: { jobs: Job[] }) => {
     filteredJobProperties.forEach((filterType = 'status') => {
       return counts[filterType as keyof Counts] = (counts[filterType as keyof Counts] || 0) + 1;
     });
-
     const countedOccurrences = Object.keys(counts).map((key) => { return counts[key as keyof Counts] }) as number[];
     // get an array of values to be passed to the OverviewChart component. 
     setFilteredJobsData(countedOccurrences);
@@ -163,14 +162,11 @@ const Dashboard = ({ jobs }: { jobs: Job[] }) => {
     setJobStatus(uniqueJobProperties)
   }, [jobs]);
 
+  const filterTypes = ['status', 'position', 'company'];
+
   useEffect(() => {
     filterJobsData('status')
   }, [jobs, filterJobsData]);
-
-
-  const filterTypes = ['status', 'position', 'company'];
-
-
 
   return (
     <DashboardWrapper>

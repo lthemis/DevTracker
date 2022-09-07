@@ -58,7 +58,7 @@ type blurStateType = {
   [key: string]: boolean | string;
 }
 
-const FormComp = ({ jobs, setJobs, role }: { jobs: Job[], setJobs: any, role: string }) => {
+const FormComp = ({ jobs, setJobs, role }: { jobs: Job[], setJobs: FunctionType<Job[]>, role: string }) => {
   let navigate = useNavigate();
   const { id: jobId } = useParams();
   const selectedJob = jobs && jobs.find(job => job._id === jobId)

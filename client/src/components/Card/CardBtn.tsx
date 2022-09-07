@@ -18,7 +18,7 @@ button {
 }
 `;
 
-export const CardBtn = ({ handler, icon, job }: { handler: jobHandler, icon: IconDefinition, job: Job }) => {
+export const CardBtn = ({ handler, icon, job }: { handler: FunctionType<string>, icon: IconDefinition, job: Job }) => {
   return (
     <Icon >
       <button className="edit-job-button" onClick={() => job._id && handler(job._id)} >
