@@ -40,15 +40,15 @@ const CardWrapper = styled.div`
   }
 `;
 
-const List = ({ jobs, setJobs }) => {
+const List = ({ jobs, setJobs }: { jobs: Job[], setJobs: React.Dispatch<React.SetStateAction<Job[]>> }) => {
   let navigate = useNavigate();
-  const [filter, setFilter] = useState(null);
-  
-  const editHandler = id => {
+  const [filter, setFilter] = useState<string>('all');
+
+  const editHandler = (id: string) => {
     navigate(`/edit/${id}`);
   };
 
-  const deleteHandler = async id => {
+  const deleteHandler = async (id: string) => {
     await jobService
       .deleteJob(id)
       .then(() => setJobs(jobs.filter(job => job.id !== id)));
@@ -71,20 +71,20 @@ const List = ({ jobs, setJobs }) => {
   return (
     <ListWrapper>
       <PositionButton>
-        {btnValues.map((value, i) => {
-          return <Btn value={value} setFilter={setFilter} key={i}></Btn>;
+        {btnValues.map((selectedFilter, i) => {
+          return <Btn selectedFilter={selectedFilter} setFilter={setFilter} key={i}></Btn>;
         })}
       </PositionButton>
 
       <CardWrapper>
         {jobs && jobs
           .filter(job => {
-            if (filter === null) {
+            if (filter === 'all') {
               return job;
             }
             return job.position === filter || job.status === filter;
           })
-          .map((job,i) => {
+          .map((job, i) => {
             return (
               <Card
                 job={job}

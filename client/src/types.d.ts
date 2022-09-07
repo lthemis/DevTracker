@@ -27,5 +27,13 @@ interface Counts {
 }
 
 interface jobHandler {
-  (id: string):null
+  (arg: string):void
+}
+
+interface SetJobs {
+  (arg: Job[]):void
+}
+
+interface FunctionType {
+  <Type>(value: Type):void
 }

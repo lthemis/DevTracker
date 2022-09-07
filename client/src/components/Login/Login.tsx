@@ -23,13 +23,8 @@ const LoginButton = styled.div`
     cursor: pointer;
   }
 `;
-interface props {
-  loggedIn: any
-  setLoggedIn: any
-  setJobs?: any
-}
+export function Login({ loggedIn, setLoggedIn, setJobs }: { loggedIn?: boolean, setLoggedIn?: React.Dispatch<React.SetStateAction<boolean>>, setJobs?: React.Dispatch<React.SetStateAction<Job[]>> }) {
 
-export function Login({ loggedIn, setLoggedIn, setJobs }: props) {
   const navigate = useNavigate();
   const SingInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
@@ -40,7 +35,7 @@ export function Login({ loggedIn, setLoggedIn, setJobs }: props) {
         localStorage.setItem('uid', res.user.uid);
         res.user.photoURL && localStorage.setItem('userPhoto', res.user.photoURL);
         res.user.email && localStorage.setItem('email', res.user.email);
-        setLoggedIn(true);
+        setLoggedIn && setLoggedIn(true);
         return;
       })
       .catch(err => {
@@ -51,9 +46,9 @@ export function Login({ loggedIn, setLoggedIn, setJobs }: props) {
   const LogOut = async () => {
     signOut(auth)
       .then(res => {
-        setJobs([])
+        setJobs && setJobs([])
       })
-      .then(setLoggedIn(false))
+      .then(() => setLoggedIn && setLoggedIn(false))
       .catch(err => {
         console.log(err);
       });
@@ -77,5 +72,3 @@ export function Login({ loggedIn, setLoggedIn, setJobs }: props) {
     </div>
   );
 }
-
-// export default Login;

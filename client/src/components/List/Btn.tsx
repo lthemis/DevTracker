@@ -18,13 +18,13 @@ const TagButton = styled.button`
 
 `;
 
-export const Btn = ({ value, setFilter }) => {
+export const Btn = ({ selectedFilter, setFilter }: { selectedFilter: string, setFilter: React.Dispatch<React.SetStateAction<string>> }) => {
   return (
     <TagButton
       className='tag-btn'
-      onClick={() => setFilter(value === 'all' ? null : value)}
-      value={value}>
-      {value}
+      onClick={() => setFilter(selectedFilter)}
+      value={selectedFilter}>
+      {selectedFilter}
     </TagButton>
   );
 };

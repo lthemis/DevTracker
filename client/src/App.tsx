@@ -19,8 +19,9 @@ flex-direction: column;
 
 const App = () => {
 
-  const userId = localStorage.getItem('uid'); 
-  const [jobs, setJobs] = useState([]);
+  const userId = localStorage.getItem('uid');
+  const [jobs, setJobs] = useState<Job[]>([]);
+
   const getUid = async () => {
     const uid = await localStorage.getItem('uid');
     return uid;
@@ -28,7 +29,7 @@ const App = () => {
 
   const fetchItems = async () => {
     const uid = await getUid();
-    const jobsFromDb = await jobService.getAllJobs(uid);
+    const jobsFromDb = uid && await jobService.getAllJobs(uid);
 
     return jobsFromDb;
   };
@@ -40,7 +41,7 @@ const App = () => {
 
   useEffect(() => {
     setStateFunc();
-}, []);
+  }, []);
 
 
   return userId ? (
@@ -51,22 +52,19 @@ const App = () => {
           <Router>
             <Navbar />
             <Routes>
-              
-              <Route exact path='/' element={<Landing />} />
-              
+
+              <Route path='/' element={<Landing />} />
+
               <Route
-                exact
                 path='/dashboard'
                 element={<Dashboard jobs={jobs} />}
               />
-              <Route exact path='/login' setJobs={setJobs} element={<Login />} />
+              <Route path='/login' element={<Login setJobs={setJobs} />} />
               <Route
-                exact
                 path='/list'
                 element={<List jobs={jobs} setJobs={setJobs} />}
               />
               <Route
-                exact
                 path='/add'
                 element={
                   <FormComp
@@ -77,7 +75,6 @@ const App = () => {
                 }
               />
               <Route
-                exact
                 path='/edit/:id'
                 element={
                   <FormComp
@@ -88,7 +85,6 @@ const App = () => {
                 }
               />
               <Route
-                exact
                 path='/reminder'
                 element={<Reminder jobs={jobs} />}
               />
@@ -99,21 +95,21 @@ const App = () => {
     </>
   ) : (
     <>
-     <AppWrapper>
+      <AppWrapper>
         <GlobalStyle />
-    <Router>
-    <Navbar />
-      <Routes>
-        <Route exact path='/' element={<Landing />} />
-        <Route path='/dashboard' element={<Navigate to='/'></Navigate>} />
-        <Route path='/list' element={<Navigate to='/'></Navigate>} />
-        <Route path='/add' element={<Navigate to='/'></Navigate>} />
-        <Route path='/edit:id' element={<Navigate to='/'></Navigate>} />
-        <Route path='/reminder' element={<Navigate to='/'></Navigate>} />
-        <Route path='/*' element={<Navigate to='/'></Navigate>} />
-      </Routes>
-    </Router>
-    </AppWrapper>
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path='/' element={<Landing />} />
+            <Route path='/dashboard' element={<Navigate to='/'></Navigate>} />
+            <Route path='/list' element={<Navigate to='/'></Navigate>} />
+            <Route path='/add' element={<Navigate to='/'></Navigate>} />
+            <Route path='/edit:id' element={<Navigate to='/'></Navigate>} />
+            <Route path='/reminder' element={<Navigate to='/'></Navigate>} />
+            <Route path='/*' element={<Navigate to='/'></Navigate>} />
+          </Routes>
+        </Router>
+      </AppWrapper>
     </>
   );
 };
