@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import * as BsIcons from 'react-icons/bs';
 import * as BiIcons from 'react-icons/bi';
 import styled from 'styled-components';
@@ -144,12 +144,7 @@ const Dashboard = ({ jobs }: { jobs: Job[] }) => {
   const [JobStatus, setJobStatus] = useState<string[]>([])
   const [filteredJobsData, setFilteredJobsData] = useState<number[]>([])
 
-  useEffect(() => {
-    filterJobsData('status')
-  }, []);
-  const filterTypes = ['status', 'position', 'company'];
-
-  const filterJobsData = (filterType: string) => {
+  const filterJobsData = useCallback((filterType: string) => {
     // get an array of job properties relevant for a given filter, e.g. it's application status, company name or position applied
     const filteredJobProperties = jobs.map((job) => {
       return job[filterType as keyof Job];
@@ -166,7 +161,16 @@ const Dashboard = ({ jobs }: { jobs: Job[] }) => {
     setFilteredJobsData(countedOccurrences);
     // get an array of keys to be passed to the OverviewChart component. 
     setJobStatus(uniqueJobProperties)
-  };
+  }, [jobs]);
+
+  useEffect(() => {
+    filterJobsData('status')
+  }, [jobs, filterJobsData]);
+
+
+  const filterTypes = ['status', 'position', 'company'];
+
+
 
   return (
     <DashboardWrapper>
