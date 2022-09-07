@@ -1,8 +1,8 @@
-import react, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import jobService from '../../service/jobService';
-import { Btn } from './Btn';
+import { Tag } from './Tag';
 import { Card } from '../Card/Card';
 const ListWrapper = styled.div`
   width: 100%;
@@ -40,8 +40,14 @@ const CardWrapper = styled.div`
   }
 `;
 
-const List = ({ jobs, setJobs }: { jobs: Job[], setJobs: React.Dispatch<React.SetStateAction<Job[]>> }) => {
-  let navigate = useNavigate();
+const List = ({
+  jobs,
+  setJobs,
+}: {
+  jobs: Job[];
+  setJobs: React.Dispatch<React.SetStateAction<Job[]>>;
+}) => {
+  const navigate = useNavigate();
   const [filter, setFilter] = useState<string>('all');
 
   const editHandler = (id: string) => {
@@ -51,8 +57,8 @@ const List = ({ jobs, setJobs }: { jobs: Job[], setJobs: React.Dispatch<React.Se
   const deleteHandler = async (id: string) => {
     await jobService
       .deleteJob(id)
-      .then(() => setJobs(jobs.filter(job => job.id !== id)));
-    const alteredJobs = jobs.filter(job => job._id !== id);
+      .then(() => setJobs(jobs.filter((job) => job.id !== id)));
+    const alteredJobs = jobs.filter((job) => job._id !== id);
     setJobs(alteredJobs);
   };
 
@@ -72,27 +78,35 @@ const List = ({ jobs, setJobs }: { jobs: Job[], setJobs: React.Dispatch<React.Se
     <ListWrapper>
       <PositionButton>
         {btnValues.map((selectedFilter, i) => {
-          return <Btn selectedFilter={selectedFilter} setFilter={setFilter} key={i}></Btn>;
+          return (
+            <Tag
+              selectedFilter={selectedFilter}
+              setFilter={setFilter}
+              key={i}
+            ></Tag>
+          );
         })}
       </PositionButton>
 
       <CardWrapper>
-        {jobs && jobs
-          .filter(job => {
-            if (filter === 'all') {
-              return job;
-            }
-            return job.position === filter || job.status === filter;
-          })
-          .map((job, i) => {
-            return (
-              <Card
-                job={job}
-                editHandler={editHandler}
-                deleteHandler={deleteHandler}
-                key={i}></Card>
-            );
-          })}
+        {jobs &&
+          jobs
+            .filter((job) => {
+              if (filter === 'all') {
+                return job;
+              }
+              return job.position === filter || job.status === filter;
+            })
+            .map((job, i) => {
+              return (
+                <Card
+                  job={job}
+                  editHandler={editHandler}
+                  deleteHandler={deleteHandler}
+                  key={i}
+                ></Card>
+              );
+            })}
       </CardWrapper>
     </ListWrapper>
   );

@@ -1,6 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import morgan from 'morgan';
 import dotenv from 'dotenv';
 import jobsRouter from './router/jobsRouter.js';
 import { connectDB } from './db/jobs.js';
@@ -11,7 +10,6 @@ const PORT = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use(cors());
-// app.use(morgan('tiny'));
 
 app.use(jobsRouter);
 

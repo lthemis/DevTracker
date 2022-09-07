@@ -1,5 +1,10 @@
 import React from 'react';
-import { signInWithPopup, GoogleAuthProvider, signOut, UserCredential } from 'firebase/auth';
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+  UserCredential,
+} from 'firebase/auth';
 import { auth } from '../../firebase';
 import styled from 'styled-components';
 import COLORS from '../../styles/styled.constants';
@@ -23,33 +28,40 @@ const LoginButton = styled.div`
     cursor: pointer;
   }
 `;
-export function Login({ loggedIn, setLoggedIn, setJobs }: { loggedIn?: boolean, setLoggedIn?: React.Dispatch<React.SetStateAction<boolean>>, setJobs?: React.Dispatch<React.SetStateAction<Job[]>> }) {
-
+export function Login({
+  loggedIn,
+  setLoggedIn,
+  setJobs,
+}: {
+  loggedIn?: boolean;
+  setLoggedIn?: React.Dispatch<React.SetStateAction<boolean>>;
+  setJobs?: React.Dispatch<React.SetStateAction<Job[]>>;
+}) {
   const navigate = useNavigate();
   const SingInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
 
     signInWithPopup(auth, provider)
       .then((res: UserCredential) => {
-        console.log(res);
         localStorage.setItem('uid', res.user.uid);
-        res.user.photoURL && localStorage.setItem('userPhoto', res.user.photoURL);
+        res.user.photoURL &&
+          localStorage.setItem('userPhoto', res.user.photoURL);
         res.user.email && localStorage.setItem('email', res.user.email);
         setLoggedIn && setLoggedIn(true);
         return;
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 
   const LogOut = async () => {
     signOut(auth)
-      .then(res => {
-        setJobs && setJobs([])
+      .then(() => {
+        setJobs && setJobs([]);
       })
       .then(() => setLoggedIn && setLoggedIn(false))
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
     localStorage.removeItem('uid');
@@ -61,11 +73,11 @@ export function Login({ loggedIn, setLoggedIn, setJobs }: { loggedIn?: boolean, 
   return (
     <div>
       {!loggedIn ? (
-        <LoginButton className='login-button' onClick={SingInWithGoogle}>
+        <LoginButton className="login-button" onClick={SingInWithGoogle}>
           Sing In With Google
         </LoginButton>
       ) : (
-        <LoginButton className='login-google' onClick={LogOut}>
+        <LoginButton className="login-google" onClick={LogOut}>
           Log out
         </LoginButton>
       )}

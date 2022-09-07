@@ -11,23 +11,23 @@ import COLORS from '../../styles/styled.constants';
 import OverviewChart from './OverviewChart';
 
 const DashboardWrapper = styled.div`
-display: flex;
-  margin-top: 2rem; 
+  display: flex;
+  margin-top: 2rem;
   flex-direction: row;
-  flex-wrap: wrap;  
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center; 
-  min-width: 300px; 
+  justify-content: center;
+  min-width: 300px;
   height: 100%;
 `;
 
 const DashboardContainer = styled.div`
-  .dashboard--icon{
+  .dashboard--icon {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;  
+    justify-content: center;
   }
 `;
 
@@ -55,29 +55,29 @@ const DashboardCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 3rem; 
-  
-  .chart-navigation{
+  margin: 3rem;
+
+  .chart-navigation {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
     background-color: #ebebeb;
-    border-radius: 3px; 
+    border-radius: 3px;
     min-width: 20rem;
-    margin: 1rem;  
+    margin: 1rem;
   }
 
-  .chart-navigation-details{
+  .chart-navigation-details {
     display: flex;
-    flex-direction: row; 
-    flex-grow: 1; 
+    flex-direction: row;
+    flex-grow: 1;
   }
 
   h3,
   h4 {
     text-align: center;
-    font-size: 1rem; 
+    font-size: 1rem;
   }
   .btn--icon {
     font-weight: 800;
@@ -117,7 +117,7 @@ const DashboardCard = styled.div`
     }
   }
   .filter--num {
-    flex: 0.5; 
+    flex: 0.5;
     text-align: center;
     font-weight: 200;
     color: ${COLORS.button};
@@ -127,45 +127,54 @@ const DashboardCard = styled.div`
   }
   h3 {
     font-size: 1.5rem;
-    margin:0px; 
+    margin: 0px;
   }
-  h5{
+  h5 {
     font-size: 0.7rem;
-    margin-top:0px;
+    margin-top: 0px;
   }
 `;
 
 const Dashboard = ({ jobs }: { jobs: Job[] }) => {
-
   const filteredStatus = (str: string) => {
-    return jobs ? [...jobs].filter(job => job.status === str).length : null;
-  }
+    return jobs ? [...jobs].filter((job) => job.status === str).length : null;
+  };
 
-  const [JobStatus, setJobStatus] = useState<string[]>([])
-  const [filteredJobsData, setFilteredJobsData] = useState<number[]>([])
+  const [JobStatus, setJobStatus] = useState<string[]>([]);
+  const [filteredJobsData, setFilteredJobsData] = useState<number[]>([]);
 
-  const filterJobsData = useCallback((filterType: string) => {
-    // get an array of job properties relevant for a given filter, e.g. it's application status, company name or position applied
-    const filteredJobProperties = jobs.map((job) => {
-      return job[filterType as keyof Job];
-    }).sort()
-    let uniqueJobProperties = [...new Set(filteredJobProperties)] as string[]
-    const counts: Counts = {};
-    // populate counts object with property(filter type)-value(count of occurrences) pairs, e.g. {applied: 1, phone-interview: 1, technical interview: 2}
-    filteredJobProperties.forEach((filterType = 'status') => {
-      return counts[filterType as keyof Counts] = (counts[filterType as keyof Counts] || 0) + 1;
-    });
-    const countedOccurrences = Object.keys(counts).map((key) => { return counts[key as keyof Counts] }) as number[];
-    // get an array of values to be passed to the OverviewChart component. 
-    setFilteredJobsData(countedOccurrences);
-    // get an array of keys to be passed to the OverviewChart component. 
-    setJobStatus(uniqueJobProperties)
-  }, [jobs]);
+  const filterJobsData = useCallback(
+    (filterType: string) => {
+      // get an array of job properties relevant for a given filter, e.g. it's application status, company name or position applied
+      const filteredJobProperties = jobs
+        .map((job) => {
+          return job[filterType as keyof Job];
+        })
+        .sort();
+      const uniqueJobProperties = [
+        ...new Set(filteredJobProperties),
+      ] as string[];
+      const counts: Counts = {};
+      // populate counts object with property(filter type)-value(count of occurrences) pairs, e.g. {applied: 1, phone-interview: 1, technical interview: 2}
+      filteredJobProperties.forEach((filterType = 'status') => {
+        return (counts[filterType as keyof Counts] =
+          (counts[filterType as keyof Counts] || 0) + 1);
+      });
+      const countedOccurrences = Object.keys(counts).map((key) => {
+        return counts[key as keyof Counts];
+      }) as number[];
+      // get an array of values to be passed to the OverviewChart component.
+      setFilteredJobsData(countedOccurrences);
+      // get an array of keys to be passed to the OverviewChart component.
+      setJobStatus(uniqueJobProperties);
+    },
+    [jobs]
+  );
 
   const filterTypes = ['status', 'position', 'company'];
 
   useEffect(() => {
-    filterJobsData('status')
+    filterJobsData('status');
   }, [jobs, filterJobsData]);
 
   return (
@@ -180,19 +189,27 @@ const Dashboard = ({ jobs }: { jobs: Job[] }) => {
         <div className="buttons-container">
           <DashboardCard>
             {filterTypes.map((type, i) => (
-              <div key={i} className='chart-navigation'>
-                <div className='chart-navigation-icon'>
-                  <button onClick={() => filterJobsData(type)}><BiIcons.BiLeftArrowCircle /></button>
+              <div key={i} className="chart-navigation">
+                <div className="chart-navigation-icon">
+                  <button onClick={() => filterJobsData(type)}>
+                    <BiIcons.BiLeftArrowCircle />
+                  </button>
                 </div>
-                <div className='chart-navigation-details'>
-                  <div className='filter--num'><BsIcons.BsFillFileCodeFill /></div>
-                  <div className='dashboard--icon'><h3>{type.split('')[0].toUpperCase() + type.substring(1)}</h3></div>
+                <div className="chart-navigation-details">
+                  <div className="filter--num">
+                    <BsIcons.BsFillFileCodeFill />
+                  </div>
+                  <div className="dashboard--icon">
+                    <h3>
+                      {type.split('')[0].toUpperCase() + type.substring(1)}
+                    </h3>
+                  </div>
                 </div>
               </div>
             ))}
 
-            <div className='chart-navigation'>
-              <div className='filter--num'>
+            <div className="chart-navigation">
+              <div className="filter--num">
                 <div>
                   <FontAwesomeIcon icon={faCircleXmark} />
                 </div>
@@ -200,7 +217,7 @@ const Dashboard = ({ jobs }: { jobs: Job[] }) => {
                 <h5>Declined</h5>
               </div>
 
-              <div className='filter--num'>
+              <div className="filter--num">
                 <div>
                   <FontAwesomeIcon icon={faCircleCheck} />{' '}
                 </div>

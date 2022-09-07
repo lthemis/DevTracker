@@ -39,7 +39,7 @@ describe('End to End tests', () => {
         position: 'backend',
     };
     let jobId = '';
-    let wrongId = 'wrong4890983id098';
+    const wrongId = 'wrong4890983id098';
     it('Returns status code 200 if new job is added to the database', async () => {
         const res = await request.post('/add').send(mockCompany);
         expect(res.statusCode).toEqual(200);

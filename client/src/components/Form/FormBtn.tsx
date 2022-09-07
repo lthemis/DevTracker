@@ -1,9 +1,7 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import COLORS from '../../styles/styled.constants';
 
-const ButtonEl = styled.div`
+const FormBtnElement = styled.div`
   .add--btn,
   .cancel--btn {
     width: 130px;
@@ -25,18 +23,20 @@ type Props = {
   useCase: string;
   className: string;
   isFormInvalid?: () => boolean;
-}
+};
 
-const Button = ({ useCase, className, isFormInvalid }: Props) => {
+const FormBtn = ({ useCase, className, isFormInvalid }: Props) => {
   return (
-    <ButtonEl>
-      {useCase === 'Cancel' ?
+    <FormBtnElement>
+      {useCase === 'Cancel' ? (
         <button className={className}>{useCase}</button>
-        :
-        <button className={className} disabled={isFormInvalid!()}>{useCase}</button>
-      }
-    </ButtonEl>
-  )
-}
+      ) : (
+        <button className={className} disabled={isFormInvalid!()}>
+          {useCase}
+        </button>
+      )}
+    </FormBtnElement>
+  );
+};
 
-export default Button;
+export default FormBtn;

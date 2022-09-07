@@ -1,6 +1,5 @@
 import { Job } from '../model/jobs';
 import { RequestHandler } from 'express';
-import { request } from 'http';
 
 //Find all jobs
 export const retrieveJobs: RequestHandler = async (req, res) => {
@@ -14,11 +13,9 @@ export const retrieveJobs: RequestHandler = async (req, res) => {
 };
 
 //Post a new job
-
 export const createJob: RequestHandler = async (req, res) => {
   try {
     const newJob = await Job.create(req.body);
-    console.log(newJob);
     res.status(200).send(newJob);
   } catch (error) {
     if (!req.body.company || !req.body.position || !req.body.status) {
@@ -31,8 +28,6 @@ export const createJob: RequestHandler = async (req, res) => {
 export const updateJob: RequestHandler = async (req, res) => {
   try {
     const { jobId } = req.params;
-    console.log('REQ', req.body);
-
     const updated = await Job.findOneAndUpdate({ _id: jobId }, req.body);
     res.status(200).send(updated);
   } catch (error) {
@@ -44,11 +39,8 @@ export const updateJob: RequestHandler = async (req, res) => {
 
 // Delete job post
 export const removeJob: RequestHandler = async (req, res) => {
-  console.log('DEL CONTROLLER');
-
   try {
     const { jobId } = req.params;
-    console.log(jobId, 'thi is the JOb id');
     const deletedJob = await Job.findByIdAndDelete({ _id: jobId });
     res.status(204).send({ deletedJob, message: 'Job has been deleted' });
   } catch (error) {

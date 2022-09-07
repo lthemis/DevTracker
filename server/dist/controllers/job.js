@@ -18,7 +18,6 @@ exports.retrieveJobs = retrieveJobs;
 const createJob = async (req, res) => {
     try {
         const newJob = await jobs_1.Job.create(req.body);
-        console.log(newJob);
         res.status(200).send(newJob);
     }
     catch (error) {
@@ -32,7 +31,6 @@ exports.createJob = createJob;
 const updateJob = async (req, res) => {
     try {
         const { jobId } = req.params;
-        console.log('REQ', req.body);
         const updated = await jobs_1.Job.findOneAndUpdate({ _id: jobId }, req.body);
         res.status(200).send(updated);
     }
@@ -45,10 +43,8 @@ const updateJob = async (req, res) => {
 exports.updateJob = updateJob;
 // Delete job post
 const removeJob = async (req, res) => {
-    console.log('DEL CONTROLLER');
     try {
         const { jobId } = req.params;
-        console.log(jobId, 'thi is the JOb id');
         const deletedJob = await jobs_1.Job.findByIdAndDelete({ _id: jobId });
         res.status(204).send({ deletedJob, message: 'Job has been deleted' });
     }

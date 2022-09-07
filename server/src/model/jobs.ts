@@ -1,7 +1,7 @@
 import Mongoose from 'mongoose';
 
 interface Job {
-  uid: string; 
+  uid: string;
   company: string;
   position: string;
   status: string;
@@ -11,10 +11,10 @@ interface Job {
 
 const JobSchema = new Mongoose.Schema<Job>(
   {
-    uid:{
-      type: String, 
-      required: true, 
-    }, 
+    uid: {
+      type: String,
+      required: true,
+    },
     company: {
       type: String,
       required: true,

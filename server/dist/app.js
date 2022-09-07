@@ -13,7 +13,6 @@ const app = (0, express_1.default)();
 const PORT = process.env.PORT || 8080;
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
-// app.use(morgan('tiny'));
 app.use(jobsRouter_js_1.default);
 app.use((err, req, res, next) => {
     res.status(500).json({ message: err.message });

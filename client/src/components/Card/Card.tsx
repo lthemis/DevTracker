@@ -35,8 +35,8 @@ const CompanyWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-width: 25rem; 
-  max-width: 25rem; 
+  min-width: 25rem;
+  max-width: 25rem;
   font-size: 1.2em;
   background-color: #ebebeb;
   margin: 1rem;
@@ -56,14 +56,22 @@ const CardSection = styled.div`
   align-items: center;
 `;
 
-export const Card = ({ job, editHandler, deleteHandler }: { job: Job, editHandler: FunctionType<string>, deleteHandler: FunctionType<string> }) => {
+export const Card = ({
+  job,
+  editHandler,
+  deleteHandler,
+}: {
+  job: Job;
+  editHandler: FunctionType<string>;
+  deleteHandler: FunctionType<string>;
+}) => {
   return (
     <CompanyList key={job._id}>
       <CompanyWrapper>
         <CardSection>
           <Content job={job}></Content>
         </CardSection>
-        <li className='update'>
+        <li className="update">
           <FontAwesomeIcon icon={faRepeat} />
           Last update {moment(job.updatedAt).startOf('day').fromNow()}
         </li>
@@ -72,12 +80,14 @@ export const Card = ({ job, editHandler, deleteHandler }: { job: Job, editHandle
           <CardBtn
             handler={editHandler}
             icon={faPenToSquare}
-            job={job}></CardBtn>
+            job={job}
+          ></CardBtn>
 
           <CardBtn
             handler={deleteHandler}
             icon={faTrashCan}
-            job={job}></CardBtn>
+            job={job}
+          ></CardBtn>
         </CompanyCardButton>
       </CompanyWrapper>
     </CompanyList>

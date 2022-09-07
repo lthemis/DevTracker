@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { SidebarData } from './SideBarData';
-// import styled from "styled-components";
-// import COLORS from "../../styles/styled.constants";
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import COLORS from '../../styles/styled.constants';
@@ -20,9 +18,9 @@ const NavbarWrapper = styled.div`
   .logo {
     padding-right: 2rem;
     color: ${COLORS.button};
-    @media (max-width: 1006px) { 
-      display:none;
-     }
+    @media (max-width: 1006px) {
+      display: none;
+    }
     h2 {
       font-size: 2.8em;
       font-weight: bolder;
@@ -43,7 +41,7 @@ const NavbarWrapper = styled.div`
   }
   .nav-menu {
     z-index: 100;
-    border-right: 4px solid rgb(116,255,122);
+    border-right: 4px solid rgb(116, 255, 122);
     width: 14rem;
     height: 100vh;
     display: flex;
@@ -57,7 +55,7 @@ const NavbarWrapper = styled.div`
     z-index: 100;
     left: 0;
     transition: 350ms;
-    background-color:#242933;
+    background-color: #242933;
   }
   .nav-text {
     display: flex;
@@ -119,21 +117,22 @@ const Navbar = () => {
 
   return (
     <NavbarWrapper>
-      <Link to='#' className='menu-bars'>
+      <Link to="#" className="menu-bars">
         <FaIcons.FaBars onClick={showSidebar} style={{ color: '#75FF7A' }} />
       </Link>
-      <div className='logo'>
+      <div className="logo">
         <img
           src={textLogo}
-          alt='Text logo Dev Tracker'
-          style={{ width: '15rem' }}></img>
+          alt="Text logo Dev Tracker"
+          style={{ width: '15rem' }}
+        ></img>
       </div>
       <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-        <div className='logo'></div>
+        <div className="logo"></div>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-          <ul className='nav-menu-items'>
-            <li className='navbar-toggle'>
-              <Link to='#' className='close-bars' onClick={showSidebar}>
+          <ul className="nav-menu-items">
+            <li className="navbar-toggle">
+              <Link to="#" className="close-bars" onClick={showSidebar}>
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
@@ -141,11 +140,13 @@ const Navbar = () => {
               <div style={{ textAlign: 'center' }}>
                 <img
                   src={userPhoto ? userPhoto : undefined}
-                  alt='user'
+                  alt="user"
                   style={{ borderRadius: '100px' }}
-                  referrerPolicy="no-referrer" />
+                  referrerPolicy="no-referrer"
+                />
                 <p
-                  style={{ color: 'white', fontSize: '0.8rem', margin: '5px' }}>
+                  style={{ color: 'white', fontSize: '0.8rem', margin: '5px' }}
+                >
                   {userName}
                 </p>
                 <p
@@ -153,7 +154,8 @@ const Navbar = () => {
                     color: 'white',
                     fontSize: '0.6rem',
                     marginBottom: '3rem',
-                  }}>
+                  }}
+                >
                   {email}
                 </p>
               </div>
@@ -176,12 +178,13 @@ const Navbar = () => {
               <div style={{ textAlign: 'center' }}>
                 <img
                   src={logo}
-                  alt='DevTracker Logo'
+                  alt="DevTracker Logo"
                   style={{
                     borderRadius: '50px',
                     width: '7rem',
                     marginTop: '30px',
-                  }}></img>
+                  }}
+                ></img>
                 <p style={{ color: 'white', marginTop: '30px' }}>
                   Please log in to see the information of your Dashboard
                 </p>

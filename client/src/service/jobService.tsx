@@ -1,20 +1,17 @@
 const baseURL = `http://localhost:3000`;
 
 const jobService = {
-
   getAllJobs(uid: string) {
     return fetch(`${baseURL}/list/${uid}`)
-      .then(response => {
+      .then((response) => {
         if (response.status < 300) {
-          return response.json()
+          return response.json();
         } else {
-          console.log('error', response.status);
-          return new Error(`There was an error`)
+          return new Error(`There was an error`);
         }
       })
-      .then(data => data)
-      .catch(e => console.log(e)
-      );
+      .then((data) => data)
+      .catch((e) => console.log(e));
   },
 
   async createJob(job: Job) {
@@ -31,7 +28,8 @@ const jobService = {
   },
 
   async updateJob(job: Job) {
-    const { _id, company, position, status, date_applied, date_interview } = job;
+    const { _id, company, position, status, date_applied, date_interview } =
+      job;
     const response = await fetch(`${baseURL}/edit/${_id}`, {
       method: 'PUT',
       body: JSON.stringify({
